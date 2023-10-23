@@ -9,8 +9,8 @@ import java.util.logging.Logger;
 
 public class UporabnikDaoImpl implements BaseDao {
 
-    private static       UporabnikDaoImpl instance;
-    private static final Logger           log = Logger.getLogger(UporabnikDaoImpl.class.getName());
+    private static UporabnikDaoImpl instance;
+    private static final Logger log = Logger.getLogger(UporabnikDaoImpl.class.getName());
 
     private Connection connection;
 
@@ -78,18 +78,89 @@ public class UporabnikDaoImpl implements BaseDao {
 
     @Override
     public void vstavi(Entiteta ent) {
-        //programska koda za vstavljanje uporabnikov
+        PreparedStatement ps = null;
+        Uporabnik user = (Uporabnik) ent;
+        try {
+            String sql = "INSERT INTO uporabnik (id, ime, priimek, uporabniskoime) VALUES (?, ?, ?, ?)";
+            ps = connection.prepareStatement(sql);
+            ps.setInt(1, ent.getId());
+            ps.setString(2, user.getIme());
+            ps.setString(3, user.getPriimek());
+            ps.setString(4, user.getUporabniskoIme());
+            ps.executeQuery();
+
+        }
+        catch (SQLException e) {
+            log.severe(e.toString());
+        }
+        finally {
+            if (ps != null) {
+                try {
+                    ps.close();
+                }
+                catch (SQLException e) {
+                    log.severe(e.toString());
+                }
+            }
+        }
 
     }
 
     @Override
     public void odstrani(int id) {
-        //programska koda za odstranjevanje uporabnikov
+        PreparedStatement ps = null;
+
+        try {
+            String sql = "DELETE FROM uporabnik WHERE id = ?";
+            ps = connection.prepareStatement(sql);
+            ps.setInt(1, id);
+            ps.executeQuery();
+
+
+        }
+        catch (SQLException e) {
+            log.severe(e.toString());
+        }
+        finally {
+            if (ps != null) {
+                try {
+                    ps.close();
+                }
+                catch (SQLException e) {
+                    log.severe(e.toString());
+                }
+            }
+        }
     }
 
     @Override
     public void posodobi(Entiteta ent) {
-        //programska koda za posodabljanje uporabnikov
+        PreparedStatement ps = null;
+        Uporabnik user = (Uporabnik) ent;
+        try {
+            String sql = "UPDATE uporabnik SET ime = ?, priimek = ?, uporabniskoime = ? WHERE id = ?";
+            ps = connection.prepareStatement(sql);
+            ps.setInt(4, ent.getId());
+            ps.setString(1, user.getIme());
+            ps.setString(2, user.getPriimek());
+            ps.setString(3, user.getUporabniskoIme());
+            ps.executeQuery();
+
+        }
+        catch (SQLException e) {
+            log.severe(e.toString());
+        }
+        finally {
+            if (ps != null) {
+                try {
+                    ps.close();
+                }
+                catch (SQLException e) {
+                    log.severe(e.toString());
+                }
+            }
+        }
+
 
     }
 

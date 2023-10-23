@@ -30,17 +30,18 @@ public class PrviJdbcServlet extends HttpServlet {
         Optional<String> microserviceName = ConfigurationUtil.getInstance().get("kumuluzee.name");
         microserviceName.ifPresent(s -> writer.println("Izpis generiran v mikrostoritvi: " + s + "\n"));
 
-        // dostop do podatkovne baye
+        // dostop do podatkovne baze
         BaseDao uporabnikDao = UporabnikDaoImpl.getInstance();
 
         Uporabnik uporabnik = new Uporabnik("Miha", "Novak", "mihanovak");
+        uporabnik.setId(2);
+        Entiteta entiteta = (Entiteta) uporabnik;
 
         // dodajanje uporabnika
-        //writer.append("Dodajam uporabnika:\n" + uporabnik.toString());
-        //uporabnikDao.vstavi(uporabnik);
-        //writer.append("\n\n");
+        writer.append("Dodajam prvega uporabnika:\n" + uporabnik.toString());
+        uporabnikDao.vstavi(entiteta);
+        writer.append("\n\n");
 
-        // demonstracija preostalih metod
 
         // izpis vseh uporabnikov
         writer.append("Seznam obstojecih uporabnikov:\n");
@@ -48,6 +49,22 @@ public class PrviJdbcServlet extends HttpServlet {
         uporabniki.stream().forEach(u -> writer.append(u.toString() + "\n"));
 
 
+        uporabnik.setIme("Mihec");
+        uporabnik.setPriimek("Novak");
+        uporabnik.setUporabniskoIme("mihecnovak");
+        entiteta = (Entiteta) uporabnik;
+        uporabnikDao.posodobi(entiteta);
+
+        writer.append("\nSeznam obstojecih uporabnikov po posodobitvi:\n");
+        uporabniki = uporabnikDao.vrniVse();
+        uporabniki.stream().forEach(u -> writer.append(u.toString() + "\n"));
+
+
+        //  brisanje uporabnika
+        uporabnikDao.odstrani(2);
+        writer.append("\nSeznam obstojecih uporabnikov po izbrisu:\n");
+        uporabniki = uporabnikDao.vrniVse();
+        uporabniki.stream().forEach(u -> writer.append(u.toString() + "\n"));
 
 
     }
