@@ -5,6 +5,7 @@ import javax.sql.DataSource;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Supplier;
 import java.util.logging.Logger;
 
 public class UporabnikDaoImpl implements BaseDao {
@@ -81,14 +82,23 @@ public class UporabnikDaoImpl implements BaseDao {
         PreparedStatement ps = null;
         Uporabnik user = (Uporabnik) ent;
         try {
-            String sql = "INSERT INTO uporabnik (id, ime, priimek, uporabniskoime) VALUES (?, ?, ?, ?)";
-            ps = connection.prepareStatement(sql);
-            ps.setInt(1, ent.getId());
-            ps.setString(2, user.getIme());
-            ps.setString(3, user.getPriimek());
-            ps.setString(4, user.getUporabniskoIme());
-            ps.executeQuery();
+            String sql = "INSERT INTO uporabnik (ime, priimek, uporabniskoime) VALUES (?, ?, ?)";
+            ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 
+            ps.setString(1, user.getIme());
+            ps.setString(2, user.getPriimek());
+            ps.setString(3, user.getUporabniskoIme());
+            ps.executeUpdate();
+
+            try (ResultSet generatedKeys = ps.getGeneratedKeys()) {
+                if (generatedKeys.next()) {
+                    // set id auto-genereted in db
+                    ent.setId(generatedKeys.getInt(1));
+                }
+                else {
+                    throw new SQLException("Creating user failed, no ID obtained.");
+                }
+            }
         }
         catch (SQLException e) {
             log.severe(e.toString());
@@ -114,7 +124,7 @@ public class UporabnikDaoImpl implements BaseDao {
             String sql = "DELETE FROM uporabnik WHERE id = ?";
             ps = connection.prepareStatement(sql);
             ps.setInt(1, id);
-            ps.executeQuery();
+            ps.executeUpdate();
 
 
         }
@@ -144,7 +154,7 @@ public class UporabnikDaoImpl implements BaseDao {
             ps.setString(1, user.getIme());
             ps.setString(2, user.getPriimek());
             ps.setString(3, user.getUporabniskoIme());
-            ps.executeQuery();
+            ps.executeUpdate();
 
         }
         catch (SQLException e) {
