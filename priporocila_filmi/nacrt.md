@@ -14,9 +14,17 @@ to-do diagram
 - uporabniško ime
 - mail
 - geslo
-- starostna skupina (_tuj ključ_) ali pa samo starost
+- starost
 - spol
 - všečkani filmi (_tuj ključ_)
+
+**Ocena:**
+- id (_primarni ključ_)
+- id uporabnika (_tuj ključ_)
+- id filma (_tuj ključ_)
+- ocena
+- komentar
+- čas oddaje komentarja
 
 **Žanr:**
 - id (_primarni ključ_)
@@ -26,4 +34,6 @@ to-do diagram
 - id (_primarni ključ_)
 - ime
 - priimek
+
+![diagram](./diagram.png)
 
