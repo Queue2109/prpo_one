@@ -6,6 +6,12 @@ import java.util.List;
 @Entity(name = "igralec")
 @NamedQueries(value = {
         @NamedQuery(name = "Igralec.getAll", query = "SELECT i FROM igralec i")
+        // uredi vrstni red igralcev po imenu
+        @NamedQuery(name = "Igralec.sortByName", query="SELECT i FROM igralec i ORDER BY i.ime")
+        // uredi vrstni red igralcev po priimku
+        @NamedQuery(name = "Igralec.sortBySurname", query="SELECT i FROM igralec i ORDER BY i.priimek")
+        // pridobi vsa imena in priimke igralcev
+        @NamedQuery(name = "Igralec.getFullNames", query="SELECT i.ime, i.priimek FROM igralec i")
 })
 public class Igralec {
 
