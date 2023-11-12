@@ -1,7 +1,6 @@
 package si.fri.prpo.skupina4;
 
 import javax.persistence.*;
-import java.util.List;
 
 @Entity(name = "zanr")
 @NamedQueries(value = {
@@ -18,9 +17,6 @@ public class Zanr {
     private Integer zanr_id;
 
     private String naziv;
-
-    @OneToMany(mappedBy = "zanr", cascade = CascadeType.ALL)
-    private List<Film> filmi;
 
 
     public Integer getZanr_id() {
@@ -39,11 +35,4 @@ public class Zanr {
         this.naziv = naziv;
     }
 
-    public List<Film> getFilmi() {
-        return filmi;
-    }
-
-    public void setFilmi(List<Film> filmi) {
-        this.filmi = filmi;
-    }
 }

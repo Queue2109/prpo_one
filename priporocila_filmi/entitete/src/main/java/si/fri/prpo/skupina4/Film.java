@@ -9,13 +9,15 @@ import java.util.List;
         // pridobi vse naslove filmov
         @NamedQuery(name = "Film.getAllTitles", query = "SELECT f.naslov FROM film f"),
         // pridobi imena in priimke vseh igralcev
-        @NamedQuery(name = "Film.getActors", query = "SELECT i.ime, i.priimek FROM film f JOIN f.igralec i"),
+        @NamedQuery(name = "Film.getActors", query = "SELECT i.ime, i.priimek FROM film f JOIN f.zasedba i"),
         // pridobi vse filme, ki so določenega žanra
         @NamedQuery(name = "Film.getAllFilmsByGenre", query = "SELECT f FROM film f WHERE f.zanr = :zanr"),
         // pridobi filme, ki so izšli po določenem letu
         @NamedQuery(name = "Film.getFilmsReleasedAfterYear", query = "SELECT f FROM film f WHERE f.leto_izzida > :leto"),
         // pridobi filme, ki imajo oceno višjo oz. enako od določene ocene
-        @NamedQuery(name = "Film.getFilmsWithMinRating", query = "SELECT f FROM film f WHERE f.ocena >= :minOcena")
+        @NamedQuery(name = "Film.getFilmsWithMinRating", query = "SELECT f FROM film f WHERE f.ocena >= :minOcena"),
+        // pridobi filme določenega žanra
+        @NamedQuery(name = "Film.getFilmsByGenreName", query = "SELECT f FROM film f WHERE f.zanr.naziv = :zanrNaziv ")
 })
 public class Film {
 

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence xmlns="http://xmlns.jcp.org/xml/ns/persistence" version="2.1">
+
+    <!-- persistence-unit je abstrakcija podatkovne baze -->
+    <persistence-unit name="priporocila-jpa" transaction-type="JTA">
+        <!-- data-source je v config.yaml napisan  *jndi-name* -->
+        <jta-data-source>jdbc/PriporocilaDS</jta-data-source>
+
+        <class>si.fri.prpo.skupina4.Uporabnik</class>
+        <class>si.fri.prpo.skupina4.Film</class>
+        <class>si.fri.prpo.skupina4.Zanr</class>
+        <class>si.fri.prpo.skupina4.Igralec</class>
+        <class>si.fri.prpo.skupina4.Ocena</class>
+
+        <properties>
+            <!-- ko se mikrostoritev zažene, se pobrišejo in kreirajo tabele -->
+            <property name="javax.persistence.schema-generation.database.action" value="drop-and-create"/>
+            <!-- shema se generira na podlagi metapodatkov=anotacije v entitetah -->
+            <property name="javax.persistence.schema-generation.create-source" value="metadata"/>
+            <!-- ko se storitev zažene, se zažene še init-db skripta -->
+            <property name="javax.persistence.sql-load-script-source" value="sql-scripts/init-db.sql"/>
+            <property name="javax.persistence.schema-generation.drop-source" value="metadata"/>
+        </properties>
+    </persistence-unit>
+</persistence>
