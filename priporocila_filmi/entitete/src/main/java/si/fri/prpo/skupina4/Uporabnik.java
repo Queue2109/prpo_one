@@ -11,7 +11,7 @@ import java.util.List;
         // pridobi uporabnike v določeni starostni skupini
         @NamedQuery(name = "Uporabnik.getByAgeRange", query = "SELECT u FROM uporabnik u WHERE u.starost BETWEEN :minStarost AND :maxStarost"),
         // pridobi imena žanrov, ki jih ima uporabnik najraje
-        @NamedQuery(name = "Uporabnik.getGenrePreferences", query = "SELECT z.ime FROM uporabnik u JOIN u.zanr_preference z WHERE u.uporabnik_id = :uporabnik_id")
+        @NamedQuery(name = "Uporabnik.getGenrePreferences", query = "SELECT z.naziv FROM uporabnik u JOIN u.zanr_preference z WHERE u.uporabnik_id = :uporabnik_id")
 })
 public class Uporabnik {
 
