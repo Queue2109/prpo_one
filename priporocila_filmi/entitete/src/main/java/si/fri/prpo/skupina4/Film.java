@@ -106,7 +106,30 @@ public class Film {
         return ocene;
     }
 
+    private String oceneToString() {
+        String s = "";
+        for (Ocena o: ocene) {
+            s += o.toString();
+        }
+        return s;
+    }
+
     public void setOcene(List<Ocena> ocene) {
         this.ocene = ocene;
     }
+
+    @Override
+    public String toString() {
+        return "Film{" +
+                "film_id=" + film_id +
+                ", naslov='" + naslov + '\'' +
+                ", opis='" + opis + '\'' +
+                ", leto_izzida=" + leto_izzida +
+                ", zanr=" + zanr.toString() +
+                ", ocena=" + ocena +
+                ", zasedba=" + this.oceneToString() +
+                ", ocene=" + ocene.toString() +
+                '}';
+    }
+
 }

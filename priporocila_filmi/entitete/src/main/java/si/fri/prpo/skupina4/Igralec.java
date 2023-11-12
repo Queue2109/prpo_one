@@ -57,4 +57,15 @@ public class Igralec {
     public void setFilmi(List<Film> filmi) {
         this.filmi = filmi;
     }
+
+    @Override
+    public String toString() {
+        return "Igralec{" +
+                "igralec_id=" + igralec_id +
+                ", ime='" + ime + '\'' +
+                ", priimek='" + priimek + '\'' +
+                ", filmi=" + filmi +
+                '}';
+    }
+
 }

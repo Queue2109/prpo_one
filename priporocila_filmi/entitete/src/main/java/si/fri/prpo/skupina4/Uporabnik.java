@@ -102,4 +102,19 @@ public class Uporabnik {
         this.ocene = ocene;
     }
 
+    @Override
+    public String toString() {
+        return "Uporabnik{" +
+                "uporabnik_id=" + uporabnik_id +
+                ", uporabnisko_ime='" + uporabnisko_ime + '\'' +
+                ", geslo='" + geslo + '\'' +
+                ", email='" + email + '\'' +
+                ", spol=" + spol +
+                ", starost=" + starost +
+                ", zanr_preference=" + zanr_preference +
+                ", ocene=" + ocene +
+                '}';
+    }
+
+
 }

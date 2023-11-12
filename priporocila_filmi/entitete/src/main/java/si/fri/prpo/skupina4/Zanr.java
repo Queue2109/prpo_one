@@ -35,4 +35,13 @@ public class Zanr {
         this.naziv = naziv;
     }
 
+    @Override
+    public String toString() {
+        return "Zanr{" +
+                "zanr_id=" + zanr_id +
+                ", naziv='" + naziv + '\'' +
+                '}';
+    }
+
+
 }

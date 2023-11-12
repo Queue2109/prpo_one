@@ -79,4 +79,17 @@ public class Ocena {
     public void setCas_objave(Date cas_objave) {
         this.cas_objave = cas_objave;
     }
+
+    @Override
+    public String toString() {
+        return "Ocena{" +
+                "ocena_id=" + ocena_id +
+                ", uporabnik=" + uporabnik +
+                ", film=" + film +
+                ", ocena=" + ocena +
+                ", komentar='" + komentar + '\'' +
+                ", cas_objave=" + cas_objave +
+                '}';
+    }
+
 }
