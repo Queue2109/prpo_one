@@ -16,17 +16,27 @@ public class JPAServlet extends HttpServlet {
     @Inject
     private FilmiZrno filmiZrno;
 
+    @Inject
+    private IgralciZrno igralciZrno;
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
         List<Film> filmi = filmiZrno.getFilmi();
+        List<Igralec> igralci = igralciZrno.getIgralci();
 
         // izpis filmov na spletno stran
         PrintWriter writer = resp.getWriter();
 
+        writer.append("printing movies\n");
         for (Film film: filmi) {
-        writer.append(film.toString());
+            writer.append(film.toString());
 
         }
+
+        writer.append("\nprinting actors\n");
+        for (Igralec i: igralci)
+            writer.append(i.toString() + "\n");
     }
+
 }
