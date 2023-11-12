@@ -5,11 +5,11 @@ import java.util.List;
 
 @Entity(name = "uporabnik")
 @NamedQueries(value = {
-        @NamedQuery(name = "Uporabnik.getAll", query = "SELECT u FROM uporabnik u")
+        @NamedQuery(name = "Uporabnik.getAll", query = "SELECT u FROM uporabnik u"),
         // pridobi uporabnika glede na njegovo uporabnisko ime
-        @NamedQuery(name = "Uporabnik.getByUsername", query = "SELECT u FROM uporabnik u WHERE u.uporabnisko_ime = :uporabnisko_ime")
+        @NamedQuery(name = "Uporabnik.getByUsername", query = "SELECT u FROM uporabnik u WHERE u.uporabnisko_ime = :uporabnisko_ime"),
         // pridobi uporabnike v določeni starostni skupini
-        @NamedQuery(name = "Uporabnik.getByAgeRange", query = "SELECT u FROM uporabnik u WHERE u.starost BETWEEN :minStarost AND :maxStarost")
+        @NamedQuery(name = "Uporabnik.getByAgeRange", query = "SELECT u FROM uporabnik u WHERE u.starost BETWEEN :minStarost AND :maxStarost"),
         // pridobi imena žanrov, ki jih ima uporabnik najraje
         @NamedQuery(name = "Uporabnik.getGenrePreferences", query = "SELECT z.ime FROM uporabnik u JOIN u.zanr_preference z WHERE u.uporabnik_id = :uporabnik_id")
 })
@@ -31,7 +31,7 @@ public class Uporabnik {
 
     @ManyToMany
     @JoinTable(name = "uporabnik_zanr", joinColumns = @JoinColumn(name = "uporabnik_id"),
-    inverseJoinColumns = @JoinColumn(name = "zanr_id"))
+            inverseJoinColumns = @JoinColumn(name = "zanr_id"))
     private List<Zanr> zanr_preference;
 
 
@@ -101,3 +101,5 @@ public class Uporabnik {
     public void setOcene(List<Ocena> ocene) {
         this.ocene = ocene;
     }
+
+}

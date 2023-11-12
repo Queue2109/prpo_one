@@ -5,11 +5,11 @@ import java.util.Date;
 
 @Entity(name = "ocena")
 @NamedQueries(value= {
-        @NamedQuery(name="Ocena.getAll", query = "SELECT o FROM  ocena o")
+        @NamedQuery(name="Ocena.getAll", query = "SELECT o FROM  ocena o"),
         // uredi po času oddaje - od najbolj sveže ocene do najstarejše
-        @NamedQuery(name="Ocena.orderByDateTime", query = "SELECT o FROM  ocena o ORDER BY o.cas_objave")
+        @NamedQuery(name="Ocena.orderByDateTime", query = "SELECT o FROM  ocena o ORDER BY o.cas_objave"),
         // uredi po oceni - najboljša do najslabša
-        @NamedQuery(name = "Ocena.orderByOcena", query = "SELECT o FROMM ocena o ORDER BY o.ocena")
+        @NamedQuery(name = "Ocena.orderByOcena", query = "SELECT o FROMM ocena o ORDER BY o.ocena"),
         // izbrisi oceno
         @NamedQuery(name = "Ocena.delete", query = "DELETE FROM ocena o WHERE o.ocena_id = :ocena_id ")
 })

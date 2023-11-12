@@ -5,11 +5,11 @@ import java.util.List;
 
 @Entity(name = "zanr")
 @NamedQueries(value = {
-        @NamedQuery(name = "Zanr.getAll", query = "SELECT z FROM  zanr z")
+        @NamedQuery(name = "Zanr.getAll", query = "SELECT z FROM  zanr z"),
         // pridobi vsa imena žanrov
-        @NamedQuery(name = "Zanr.getAllNames", query = "SELECT z.naziv FROM zanr z ")
+        @NamedQuery(name = "Zanr.getAllNames", query = "SELECT z.naziv FROM zanr z "),
         // uredi imena žanrov po abecednem vrstnem redu
-        @NamedQuery(name = "Zanr.orderByName", query = "SELECT z FROM zanr z ORDER BY z.naziv")
+        @NamedQuery(name = "Zanr.orderByName", query = "SELECT z FROM zanr z ORDER BY z.naziv"),
 })
 public class Zanr {
 
