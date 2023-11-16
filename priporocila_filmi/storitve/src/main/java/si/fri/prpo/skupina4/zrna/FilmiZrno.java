@@ -1,4 +1,6 @@
-package si.fri.prpo.skupina4;
+package si.fri.prpo.skupina4.zrna;
+
+import si.fri.prpo.skupina4.Film;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
@@ -12,19 +14,19 @@ import java.util.List;
 import java.util.logging.Logger;
 
 @ApplicationScoped
-public class UporabnikiZrno {
+public class FilmiZrno {
 
     // omogoča logiranje
-    private Logger log = Logger.getLogger(UporabnikiZrno.class.getName());
+    private Logger log = Logger.getLogger(FilmiZrno.class.getName());
     @PostConstruct
     private void init() {
-        log.info("Inicializacija zrna " + UporabnikiZrno.class.getSimpleName());
+        log.info("Inicializacija zrna " + FilmiZrno.class.getSimpleName());
         // inicializacija virov
     }
 
     @PreDestroy
     private void destroy() {
-        log.info("Deinicializacija zrna " + UporabnikiZrno.class.getSimpleName());
+        log.info("Deinicializacija zrna " + FilmiZrno.class.getSimpleName());
         // zapiranje virov
     }
 
@@ -32,17 +34,17 @@ public class UporabnikiZrno {
     private EntityManager em;
 
     @Transactional
-    public List<Uporabnik> getUporabniki() {
-        Query query = em.createNamedQuery("Uporabnik.getAll", Uporabnik.class);
+    public List<Film> getFilmi() {
+        Query query = em.createNamedQuery("Film.getAll", Film.class);
         return query.getResultList();
     }
 
     @Transactional
-    public Uporabnik getUporabnikById(int id) {
+    public Film getFilmById(int id) {
         try {
-            Query query = em.createNamedQuery("Uporabnik.getUporabnikById", Uporabnik.class);
+            Query query = em.createNamedQuery("Film.getFilmById", Film.class);
             query.setParameter("id", id);
-            return (Uporabnik) query.getSingleResult();
+            return (Film) query.getSingleResult();
         } catch (Exception e) {
             e.printStackTrace();
             return null;
@@ -50,10 +52,10 @@ public class UporabnikiZrno {
     }
 
     @Transactional
-    public void dodajUporabnika(Uporabnik uporabnik) {
-        if (uporabnik != null) {
+    public void dodajFilm(Film film) {
+        if (film != null) {
             try{
-                em.persist(uporabnik);
+                em.persist(film);
             } catch (IllegalArgumentException | TransactionRequiredException e) {
                 e.printStackTrace();
             }
@@ -61,18 +63,18 @@ public class UporabnikiZrno {
     }
 
     @Transactional
-    public void posodobiUporabnika(Uporabnik uporabnik) {
+    public void posodobiFilm(Film film) {
         try{
-            em.merge(uporabnik);
+            em.merge(film);
         } catch (IllegalArgumentException | TransactionRequiredException e) {
             e.printStackTrace();
         }
     }
 
     @Transactional
-    public void odstraniUporabnika(Uporabnik uporabnik) {
+    public void odstraniFilm(Film film) {
         try{
-            em.remove(em.merge(uporabnik));
+            em.remove(em.merge(film));
         } catch (IllegalArgumentException | TransactionRequiredException e) {
             e.printStackTrace();
         }

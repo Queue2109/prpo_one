@@ -1,4 +1,7 @@
-package si.fri.prpo.skupina4;
+package si.fri.prpo.skupina4.zrna;
+
+import si.fri.prpo.skupina4.Uporabnik;
+import si.fri.prpo.skupina4.Zanr;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
@@ -12,35 +15,37 @@ import java.util.List;
 import java.util.logging.Logger;
 
 @ApplicationScoped
-public class IgralciZrno {
+public class ZanrZrno {
 
-    private Logger log = Logger.getLogger(IgralciZrno.class.getName());
-
+    // omogoča logiranje
+    private Logger log = Logger.getLogger(ZanrZrno.class.getName());
     @PostConstruct
     private void init() {
-        log.info("Inicializacija zrna " + IgralciZrno.class.getSimpleName());
+        log.info("Inicializacija zrna " + ZanrZrno.class.getSimpleName());
+        // inicializacija virov
     }
 
     @PreDestroy
     private void destroy() {
-        log.info("Deinicializacija zrna " + IgralciZrno.class.getSimpleName());
+        log.info("Deinicializacija zrna " + ZanrZrno.class.getSimpleName());
+        // zapiranje virov
     }
 
     @PersistenceContext(unitName = "priporocila-jpa")
     private EntityManager em;
 
     @Transactional
-    public List<Igralec> getIgralci() {
-        Query query = em.createNamedQuery("Igralec.getAll", Igralec.class);
+    public List<Zanr> getZanri() {
+        Query query = em.createNamedQuery("Zanr.getAll", Zanr.class);
         return query.getResultList();
     }
 
     @Transactional
-    public Igralec getIgralecById(int id) {
+    public Zanr getZanrById(int id) {
         try {
-            Query query = em.createNamedQuery("Igralec.getIgralecById", Igralec.class);
+            Query query = em.createNamedQuery("Zanr.getZanrById", Uporabnik.class);
             query.setParameter("id", id);
-            return (Igralec) query.getSingleResult();
+            return (Zanr) query.getSingleResult();
         } catch (Exception e) {
             e.printStackTrace();
             return null;
@@ -48,10 +53,10 @@ public class IgralciZrno {
     }
 
     @Transactional
-    public void dodajIgralca(Igralec igralec) {
-        if (igralec != null) {
+    public void dodajZanr(Zanr zanr) {
+        if (zanr != null) {
             try{
-                em.persist(igralec);
+                em.persist(zanr);
             } catch (IllegalArgumentException | TransactionRequiredException e) {
                 e.printStackTrace();
             }
@@ -59,18 +64,18 @@ public class IgralciZrno {
     }
 
     @Transactional
-    public void posodobiIgralca(Igralec igralec) {
+    public void posodobiZanr(Zanr zanr) {
         try{
-            em.merge(igralec);
+            em.merge(zanr);
         } catch (IllegalArgumentException | TransactionRequiredException e) {
             e.printStackTrace();
         }
     }
 
     @Transactional
-    public void odstraniIgralca(Igralec igralec) {
+    public void odstraniZanr(Zanr zanr) {
         try{
-            em.remove(em.merge(igralec));
+            em.remove(em.merge(zanr));
         } catch (IllegalArgumentException | TransactionRequiredException e) {
             e.printStackTrace();
         }

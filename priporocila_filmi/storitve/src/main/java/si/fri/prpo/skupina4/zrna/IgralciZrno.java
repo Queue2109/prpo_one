@@ -1,4 +1,6 @@
-package si.fri.prpo.skupina4;
+package si.fri.prpo.skupina4.zrna;
+
+import si.fri.prpo.skupina4.Igralec;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
@@ -12,37 +14,35 @@ import java.util.List;
 import java.util.logging.Logger;
 
 @ApplicationScoped
-public class FilmiZrno {
+public class IgralciZrno {
 
-    // omogoča logiranje
-    private Logger log = Logger.getLogger(FilmiZrno.class.getName());
+    private Logger log = Logger.getLogger(IgralciZrno.class.getName());
+
     @PostConstruct
     private void init() {
-        log.info("Inicializacija zrna " + FilmiZrno.class.getSimpleName());
-        // inicializacija virov
+        log.info("Inicializacija zrna " + IgralciZrno.class.getSimpleName());
     }
 
     @PreDestroy
     private void destroy() {
-        log.info("Deinicializacija zrna " + FilmiZrno.class.getSimpleName());
-        // zapiranje virov
+        log.info("Deinicializacija zrna " + IgralciZrno.class.getSimpleName());
     }
 
     @PersistenceContext(unitName = "priporocila-jpa")
     private EntityManager em;
 
     @Transactional
-    public List<Film> getFilmi() {
-        Query query = em.createNamedQuery("Film.getAll", Film.class);
+    public List<Igralec> getIgralci() {
+        Query query = em.createNamedQuery("Igralec.getAll", Igralec.class);
         return query.getResultList();
     }
 
     @Transactional
-    public Film getFilmById(int id) {
+    public Igralec getIgralecById(int id) {
         try {
-            Query query = em.createNamedQuery("Film.getFilmById", Film.class);
+            Query query = em.createNamedQuery("Igralec.getIgralecById", Igralec.class);
             query.setParameter("id", id);
-            return (Film) query.getSingleResult();
+            return (Igralec) query.getSingleResult();
         } catch (Exception e) {
             e.printStackTrace();
             return null;
@@ -50,10 +50,10 @@ public class FilmiZrno {
     }
 
     @Transactional
-    public void dodajFilm(Film film) {
-        if (film != null) {
+    public void dodajIgralca(Igralec igralec) {
+        if (igralec != null) {
             try{
-                em.persist(film);
+                em.persist(igralec);
             } catch (IllegalArgumentException | TransactionRequiredException e) {
                 e.printStackTrace();
             }
@@ -61,20 +61,21 @@ public class FilmiZrno {
     }
 
     @Transactional
-    public void posodobiFilm(Film film) {
+    public void posodobiIgralca(Igralec igralec) {
         try{
-            em.merge(film);
+            em.merge(igralec);
         } catch (IllegalArgumentException | TransactionRequiredException e) {
             e.printStackTrace();
         }
     }
 
     @Transactional
-    public void odstraniFilm(Film film) {
+    public void odstraniIgralca(Igralec igralec) {
         try{
-            em.remove(em.merge(film));
+            em.remove(em.merge(igralec));
         } catch (IllegalArgumentException | TransactionRequiredException e) {
             e.printStackTrace();
         }
     }
+
 }

@@ -1,4 +1,6 @@
-package si.fri.prpo.skupina4;
+package si.fri.prpo.skupina4.zrna;
+
+import si.fri.prpo.skupina4.Uporabnik;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
@@ -12,34 +14,37 @@ import java.util.List;
 import java.util.logging.Logger;
 
 @ApplicationScoped
-public class OceneZrno {
+public class UporabnikiZrno {
 
-    private Logger log = Logger.getLogger(OceneZrno.class.getName());
-
+    // omogoča logiranje
+    private Logger log = Logger.getLogger(UporabnikiZrno.class.getName());
     @PostConstruct
     private void init() {
-        log.info("Inicializacija zrna " + OceneZrno.class.getSimpleName());
+        log.info("Inicializacija zrna " + UporabnikiZrno.class.getSimpleName());
+        // inicializacija virov
     }
 
     @PreDestroy
     private void destroy() {
-        log.info("Deinicializacija zrna " + OceneZrno.class.getSimpleName());
+        log.info("Deinicializacija zrna " + UporabnikiZrno.class.getSimpleName());
+        // zapiranje virov
     }
+
     @PersistenceContext(unitName = "priporocila-jpa")
     private EntityManager em;
 
     @Transactional
-    public List<Ocena> getOcene() {
-        Query query = em.createNamedQuery("Ocena.getAll", Ocena.class);
+    public List<Uporabnik> getUporabniki() {
+        Query query = em.createNamedQuery("Uporabnik.getAll", Uporabnik.class);
         return query.getResultList();
     }
 
     @Transactional
-    public Ocena getOcenaById(int id) {
+    public Uporabnik getUporabnikById(int id) {
         try {
-            Query query = em.createNamedQuery("Ocena.getOcenaById", Ocena.class);
+            Query query = em.createNamedQuery("Uporabnik.getUporabnikById", Uporabnik.class);
             query.setParameter("id", id);
-            return (Ocena) query.getSingleResult();
+            return (Uporabnik) query.getSingleResult();
         } catch (Exception e) {
             e.printStackTrace();
             return null;
@@ -47,10 +52,10 @@ public class OceneZrno {
     }
 
     @Transactional
-    public void dodajOceno(Ocena ocena) {
-        if (ocena != null) {
+    public void dodajUporabnika(Uporabnik uporabnik) {
+        if (uporabnik != null) {
             try{
-                em.persist(ocena);
+                em.persist(uporabnik);
             } catch (IllegalArgumentException | TransactionRequiredException e) {
                 e.printStackTrace();
             }
@@ -58,18 +63,18 @@ public class OceneZrno {
     }
 
     @Transactional
-    public void posodobiOceno(Ocena ocena) {
+    public void posodobiUporabnika(Uporabnik uporabnik) {
         try{
-            em.merge(ocena);
+            em.merge(uporabnik);
         } catch (IllegalArgumentException | TransactionRequiredException e) {
             e.printStackTrace();
         }
     }
 
     @Transactional
-    public void odstraniOceno(Ocena ocena) {
+    public void odstraniUporabnika(Uporabnik uporabnik) {
         try{
-            em.remove(em.merge(ocena));
+            em.remove(em.merge(uporabnik));
         } catch (IllegalArgumentException | TransactionRequiredException e) {
             e.printStackTrace();
         }

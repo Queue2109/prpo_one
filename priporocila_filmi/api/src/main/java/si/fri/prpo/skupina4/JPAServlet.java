@@ -1,5 +1,7 @@
 package si.fri.prpo.skupina4;
 
+import si.fri.prpo.skupina4.zrna.*;
+
 import javax.inject.Inject;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
