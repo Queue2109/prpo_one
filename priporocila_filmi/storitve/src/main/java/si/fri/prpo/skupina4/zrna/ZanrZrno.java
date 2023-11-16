@@ -41,7 +41,7 @@ public class ZanrZrno {
     }
 
     @Transactional
-    public Zanr getZanrById(int id) {
+    public Zanr getZanrById(Integer id) {
         try {
             Query query = em.createNamedQuery("Zanr.getZanrById", Uporabnik.class);
             query.setParameter("id", id);

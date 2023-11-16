@@ -40,7 +40,7 @@ public class FilmiZrno {
     }
 
     @Transactional
-    public Film getFilmById(int id) {
+    public Film getFilmById(Integer id) {
         try {
             Query query = em.createNamedQuery("Film.getFilmById", Film.class);
             query.setParameter("id", id);

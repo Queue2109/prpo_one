@@ -4,7 +4,9 @@ import si.fri.prpo.skupina4.Uporabnik;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
-import javax.enterprise.context.ApplicationScoped;
+import java.io.Serializable;
+import java.util.UUID;
+import javax.enterprise.context.SessionScoped;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
@@ -13,14 +15,16 @@ import javax.transaction.Transactional;
 import java.util.List;
 import java.util.logging.Logger;
 
-@ApplicationScoped
-public class UporabnikiZrno {
+@SessionScoped
+public class UporabnikiZrno implements Serializable {
 
     // omogoča logiranje
     private Logger log = Logger.getLogger(UporabnikiZrno.class.getName());
     @PostConstruct
     private void init() {
-        log.info("Inicializacija zrna " + UporabnikiZrno.class.getSimpleName());
+        UUID uuid = UUID.randomUUID();
+        log.info("Inicializacija zrna " + UporabnikiZrno.class.getSimpleName()
+                + ". request scoped - uuid: " + uuid);
         // inicializacija virov
     }
 
@@ -40,7 +44,7 @@ public class UporabnikiZrno {
     }
 
     @Transactional
-    public Uporabnik getUporabnikById(int id) {
+    public Uporabnik getUporabnikById(Integer id) {
         try {
             Query query = em.createNamedQuery("Uporabnik.getUporabnikById", Uporabnik.class);
             query.setParameter("id", id);

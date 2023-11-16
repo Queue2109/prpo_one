@@ -15,7 +15,7 @@ public class FilmDto {
     private Integer leto_izzida;
 
     private Zanr zanr;
-    private Integer ocena;
+    private Double povprecna_ocena;
 
     private List<Igralec> zasedba;
 
@@ -61,12 +61,12 @@ public class FilmDto {
         this.zanr = zanr;
     }
 
-    public Integer getOcena() {
-        return ocena;
+    public Double getPovprecna_ocena() {
+        return povprecna_ocena;
     }
 
-    public void setOcena(Integer ocena) {
-        this.ocena = ocena;
+    public void setPovprecna_ocena(Double povprecna_ocena) {
+        this.povprecna_ocena = povprecna_ocena;
     }
 
     public List<Igralec> getZasedba() {

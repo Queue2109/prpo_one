@@ -28,7 +28,7 @@ public class Ocena {
     @JoinColumn(name = "film_id")
     private Film film;
 
-    private int ocena;
+    private Integer ocena;
 
     private String komentar;
 
@@ -58,11 +58,11 @@ public class Ocena {
         this.film = film;
     }
 
-    public int getOcena() {
+    public Integer getOcena() {
         return ocena;
     }
 
-    public void setOcena(int ocena) {
+    public void setOcena(Integer ocena) {
         this.ocena = ocena;
     }
 

@@ -9,10 +9,17 @@ import si.fri.prpo.skupina4.dtos.FilmDto;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
+import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.transaction.Transactional;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Logger;
 
+/**
+ * poslovna logika zrno
+ */
+@RequestScoped
 public class UpravljanjeFilmovZrno {
 
     private Logger log = Logger.getLogger(UpravljanjeFilmovZrno.class.getName());
@@ -129,11 +136,46 @@ public class UpravljanjeFilmovZrno {
         film.setOpis(filmDto.getOpis());
         film.setLeto_izzida(filmDto.getLeto_izzida());
         film.setZanr(filmDto.getZanr());
-        film.setOcena(filmDto.getOcena());
+        film.setOcena(null);
         film.setZasedba(filmDto.getZasedba());
         film.setOcene(filmDto.getOcene());
         filmiZrno.dodajFilm(film);
         return film;
     }
 
+    public void posodobiOcenoFilma (OcenaDto ocena){
+        Ocena o = oceneZrno.getOcenaById(ocena.getOcena_id());
+        o.setCas_objave(ocena.getCas_objave());
+
+        String komentar = ocena.getKomentar();
+        if(komentar != null && komentar.length() > 0) {
+            o.setKomentar(komentar);
+        }
+        if(validirajOceno(ocena)){
+            o.setOcena(ocena.getOcena());
+        }
+
+        oceneZrno.posodobiOceno(o);
+    }
+
+
+    private Boolean validirajOceno(OcenaDto oDTO){
+        Integer ocena = oDTO.getOcena();
+        return ocena != null && (ocena < 0 || ocena > 10 )&&  ocena % 1 != 0;
+    }
+
+    protected List<FilmDto> mapFilmToDTO(List<Film> seznam){
+        List<FilmDto> result = new ArrayList<>();
+        for (Film el : seznam) {
+            FilmDto film = new FilmDto();
+            film.setNaslov(el.getNaslov());
+            film.setOpis(el.getOpis());
+            film.setLeto_izzida(el.getLeto_izzida());
+            film.setZanr(el.getZanr());
+            film.setZasedba(el.getZasedba());
+            film.setOcene(el.getOcene());
+            result.add(film);
+        }
+        return result;
+    }
 }

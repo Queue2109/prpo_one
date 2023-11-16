@@ -2,7 +2,10 @@ package si.fri.prpo.skupina4.dtos;
 
 import si.fri.prpo.skupina4.Film;
 import si.fri.prpo.skupina4.Uporabnik;
-import java.util.Date;
+
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import java.sql.Date;
 
 public class OcenaDto {
 
@@ -12,10 +15,11 @@ public class OcenaDto {
 
     private Film film;
 
-    private int ocena;
+    private Integer ocena;
 
     private String komentar;
 
+    @Temporal(TemporalType.TIMESTAMP)
     private Date cas_objave;
 
     public Integer getOcena_id() {
@@ -42,11 +46,11 @@ public class OcenaDto {
         this.film = film;
     }
 
-    public int getOcena() {
+    public Integer getOcena() {
         return ocena;
     }
 
-    public void setOcena(int ocena) {
+    public void setOcena(Integer ocena) {
         this.ocena = ocena;
     }
 

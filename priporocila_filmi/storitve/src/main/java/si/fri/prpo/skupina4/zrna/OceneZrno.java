@@ -4,23 +4,26 @@ import si.fri.prpo.skupina4.Ocena;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
-import javax.enterprise.context.ApplicationScoped;
+import javax.enterprise.context.RequestScoped;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.persistence.TransactionRequiredException;
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.UUID;
 import java.util.logging.Logger;
 
-@ApplicationScoped
+@RequestScoped
 public class OceneZrno {
 
     private Logger log = Logger.getLogger(OceneZrno.class.getName());
 
     @PostConstruct
     private void init() {
-        log.info("Inicializacija zrna " + OceneZrno.class.getSimpleName());
+        UUID uuid = UUID.randomUUID();
+        log.info("Inicializacija zrna " + OceneZrno.class.getSimpleName()
+        + ". request scoped - uuid: " + uuid);
     }
 
     @PreDestroy
@@ -37,7 +40,7 @@ public class OceneZrno {
     }
 
     @Transactional
-    public Ocena getOcenaById(int id) {
+    public Ocena getOcenaById(Integer id) {
         try {
             Query query = em.createNamedQuery("Ocena.getOcenaById", Ocena.class);
             query.setParameter("id", id);

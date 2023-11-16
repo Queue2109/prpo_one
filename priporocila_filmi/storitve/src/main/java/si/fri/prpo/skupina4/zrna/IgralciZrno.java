@@ -11,6 +11,7 @@ import javax.persistence.Query;
 import javax.persistence.TransactionRequiredException;
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.UUID;
 import java.util.logging.Logger;
 
 @ApplicationScoped
@@ -20,7 +21,9 @@ public class IgralciZrno {
 
     @PostConstruct
     private void init() {
-        log.info("Inicializacija zrna " + IgralciZrno.class.getSimpleName());
+        UUID uuid = UUID.randomUUID();
+        log.info("Inicializacija zrna " + IgralciZrno.class.getSimpleName()
+                + ". application scoped - uuid: " + uuid);
     }
 
     @PreDestroy
@@ -38,7 +41,7 @@ public class IgralciZrno {
     }
 
     @Transactional
-    public Igralec getIgralecById(int id) {
+    public Igralec getIgralecById(Integer id) {
         try {
             Query query = em.createNamedQuery("Igralec.getIgralecById", Igralec.class);
             query.setParameter("id", id);
