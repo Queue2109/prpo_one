@@ -6,6 +6,8 @@ import java.util.List;
 @Entity(name = "igralec")
 @NamedQueries(value = {
         @NamedQuery(name = "Igralec.getAll", query = "SELECT i FROM igralec i"),
+        // pridobi igralca z določenim id-jem
+        @NamedQuery(name = "Igralec.getIgralecById", query = "SELECT i FROM igralec i WHERE i.igralec_id = :id"),
         // uredi vrstni red igralcev po imenu
         @NamedQuery(name = "Igralec.sortByName", query="SELECT i FROM igralec i ORDER BY i.ime"),
         // uredi vrstni red igralcev po priimku

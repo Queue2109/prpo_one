@@ -6,6 +6,8 @@ import java.util.List;
 @Entity(name = "film")
 @NamedQueries(value = {
         @NamedQuery(name = "Film.getAll", query = "SELECT f FROM film f"),
+        // pridobi film z določenim id-jem
+        @NamedQuery(name="Film.getFilmById", query = "SELECT f FROM film f WHERE f.film_id = :id"),
         // pridobi vse naslove filmov
         @NamedQuery(name = "Film.getAllTitles", query = "SELECT f.naslov FROM film f"),
         // pridobi imena in priimke vseh igralcev

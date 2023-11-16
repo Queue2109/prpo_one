@@ -6,6 +6,8 @@ import java.util.List;
 @Entity(name = "uporabnik")
 @NamedQueries(value = {
         @NamedQuery(name = "Uporabnik.getAll", query = "SELECT u FROM uporabnik u"),
+        // pridobi uporabnika z določenim id-jem
+        @NamedQuery(name = "Uporabnik.getUporabnikById", query = "SELECT u FROM uporabnik u WHERE u.uporabnik_id = :id"),
         // pridobi uporabnika glede na njegovo uporabnisko ime
         @NamedQuery(name = "Uporabnik.getByUsername", query = "SELECT u FROM uporabnik u WHERE u.uporabnisko_ime = :uporabnisko_ime"),
         // pridobi uporabnike v določeni starostni skupini

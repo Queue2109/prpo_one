@@ -5,6 +5,8 @@ import javax.persistence.*;
 @Entity(name = "zanr")
 @NamedQueries(value = {
         @NamedQuery(name = "Zanr.getAll", query = "SELECT z FROM  zanr z"),
+        // pridobi žanr z določenim id-jem
+        @NamedQuery(name = "Zanr.getZanrById", query = "SELECT z FROM zanr z WHERE z.zanr_id = :id"),
         // pridobi vsa imena žanrov
         @NamedQuery(name = "Zanr.getAllNames", query = "SELECT z.naziv FROM zanr z "),
         // uredi imena žanrov po abecednem vrstnem redu

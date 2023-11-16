@@ -6,6 +6,8 @@ import java.util.Date;
 @Entity(name = "ocena")
 @NamedQueries(value= {
         @NamedQuery(name="Ocena.getAll", query = "SELECT o FROM  ocena o"),
+        // pridobi oceno z določenim id-jem
+        @NamedQuery(name="Ocena.getOcenaById", query = "SELECT o FROM  ocena o WHERE o.ocena_id = :id"),
         // uredi po času oddaje - od najbolj sveže ocene do najstarejše
         @NamedQuery(name="Ocena.orderByDateTime", query = "SELECT o FROM  ocena o ORDER BY o.cas_objave"),
         // uredi po oceni - najboljša do najslabša
