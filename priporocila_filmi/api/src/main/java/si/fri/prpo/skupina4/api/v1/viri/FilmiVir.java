@@ -2,11 +2,14 @@ package si.fri.prpo.skupina4.api.v1.viri;
 
 import si.fri.prpo.skupina4.Film;
 import si.fri.prpo.skupina4.dtos.FilmDto;
+import si.fri.prpo.skupina4.interceptorji.BelezenjeKlicevInterceptor;
 import si.fri.prpo.skupina4.zrna.FilmiZrno;
 import si.fri.prpo.skupina4.zrna.StatistikaZrno;
 import si.fri.prpo.skupina4.zrna.UpravljanjeFilmovZrno;
 
 import javax.inject.Inject;
+import javax.interceptor.Interceptor;
+import javax.interceptor.Interceptors;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -17,6 +20,7 @@ import java.util.List;
 @Path("filmi")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
+@Interceptors(BelezenjeKlicevInterceptor.class)
 public class FilmiVir {
 
     @Inject
