@@ -45,7 +45,7 @@ public class StatistikaZrno {
         return result;
     }
 
-    public FilmDto nastaviPovpOcenoFilma(FilmDto film){
+    public FilmDto vrniPovpOcenoFilma(FilmDto film){
         Query q = em.createQuery("SELECT AVG(f.ocena) FROM film f WHERE f.film_id = :id AND f.ocena IS NOT NULL", Double.class);
         q.setParameter("id", film.getFilm_id());
         Double povp = null;

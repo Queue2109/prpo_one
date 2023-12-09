@@ -1,7 +1,10 @@
 package si.fri.prpo.skupina4.zrna;
 
+import si.fri.prpo.skupina4.Film;
 import si.fri.prpo.skupina4.Uporabnik;
 import si.fri.prpo.skupina4.Zanr;
+import si.fri.prpo.skupina4.dtos.FilmDto;
+import si.fri.prpo.skupina4.dtos.ZanrDto;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
@@ -11,6 +14,7 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.persistence.TransactionRequiredException;
 import javax.transaction.Transactional;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -79,6 +83,17 @@ public class ZanrZrno {
         } catch (IllegalArgumentException | TransactionRequiredException e) {
             e.printStackTrace();
         }
+    }
+
+    public List<ZanrDto> mapZanrToDTO(List<Zanr> seznam){
+        List<ZanrDto> result = new ArrayList<>();
+        for (Zanr el : seznam) {
+            ZanrDto zanr = new ZanrDto();
+            zanr.setZanr_id(el.getZanr_id());
+            zanr.setNaziv(el.getNaziv());
+            result.add(zanr);
+        }
+        return result;
     }
 
 }

@@ -1,6 +1,7 @@
 package si.fri.prpo.skupina4.zrna;
 
 import si.fri.prpo.skupina4.Film;
+import si.fri.prpo.skupina4.dtos.FilmDto;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
@@ -78,5 +79,12 @@ public class FilmiZrno {
         } catch (IllegalArgumentException | TransactionRequiredException e) {
             e.printStackTrace();
         }
+    }
+
+
+    public List<Film> getFilmsByZanr(Integer zanrId){
+        Query query = em.createNamedQuery("Film.getAllFilmsByGenre");
+        query.setParameter("zanr", zanrId);
+        return query.getResultList();
     }
 }

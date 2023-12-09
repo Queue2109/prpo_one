@@ -164,7 +164,7 @@ public class UpravljanjeFilmovZrno {
         return ocena != null && (ocena < 0 || ocena > 10 )&&  ocena % 1 != 0;
     }
 
-    protected List<FilmDto> mapFilmToDTO(List<Film> seznam){
+    public List<FilmDto> mapFilmToDTO(List<Film> seznam){
         List<FilmDto> result = new ArrayList<>();
         for (Film el : seznam) {
             FilmDto film = new FilmDto();

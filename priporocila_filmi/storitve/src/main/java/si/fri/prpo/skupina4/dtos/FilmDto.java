@@ -62,6 +62,13 @@ public class FilmDto {
     }
 
     public Double getPovprecna_ocena() {
+        int sum = 0;
+        int n = 0;
+        for (Ocena o: this.ocene ){
+            sum += o.getOcena();
+            n++;
+        }
+        povprecna_ocena = n > 0 ? sum/n : 0.;
         return povprecna_ocena;
     }
 
