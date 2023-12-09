@@ -30,8 +30,7 @@ public class FilmiVir {
     @GET
     public Response vrniFilme() {
 
-        List<Film> filmi = new ArrayList<>();
-        filmi.addAll(filmiZrno.getFilmi());
+        List<Film> filmi = new ArrayList<>(filmiZrno.getFilmi());
 
         List<FilmDto> filmidto = upravljanjeFilmovZrno.mapFilmToDTO(filmi);
 

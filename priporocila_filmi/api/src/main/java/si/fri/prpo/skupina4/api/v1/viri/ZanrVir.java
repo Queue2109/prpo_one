@@ -1,5 +1,6 @@
 package si.fri.prpo.skupina4.api.v1.viri;
 
+import si.fri.prpo.skupina4.Film;
 import si.fri.prpo.skupina4.Zanr;
 import si.fri.prpo.skupina4.dtos.FilmDto;
 import si.fri.prpo.skupina4.dtos.ZanrDto;
@@ -29,11 +30,10 @@ public class ZanrVir {
 
     @GET
     public Response vrniZanre(){
-        List<ZanrDto> zanriDto = new ArrayList<>();
 
         List<Zanr> zanri = zanrZrno.getZanri();
 
-        zanriDto.addAll(zanrZrno.mapZanrToDTO(zanri));
+        List<ZanrDto> zanriDto = new ArrayList<>(zanrZrno.mapZanrToDTO(zanri));
 
         return Response
                 .status(Response.Status.OK)
@@ -44,8 +44,8 @@ public class ZanrVir {
     @GET
     @Path("{id}")
     public Response getFilmsByZanr(@PathParam("id") Integer zanrId){
-        List<FilmDto> filmidto = new ArrayList<>();
-        filmidto.addAll(upravljanjeFilmovZrno.mapFilmToDTO(filmiZrno.getFilmsByZanr(zanrId)));
+        List<Film> f = filmiZrno.getFilmsByZanr(zanrId);
+        List<FilmDto> filmidto = new ArrayList<>(upravljanjeFilmovZrno.mapFilmToDTO(f));
 
         return Response.status(Response.Status.OK).entity(filmidto).build();
     }
