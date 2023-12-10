@@ -1,5 +1,7 @@
 package si.fri.prpo.skupina4;
 
+import javax.json.bind.Jsonb;
+import javax.json.bind.JsonbBuilder;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
@@ -43,16 +45,16 @@ public class Ocena implements Serializable {
         this.ocena_id = ocena_id;
     }
 
-    public Uporabnik getUporabnik() {
-        return uporabnik;
+    public String getUporabnik() {
+        return uporabnik != null ? uporabnik.toString() : null;
     }
 
     public void setUporabnik(Uporabnik uporabnik) {
         this.uporabnik = uporabnik;
     }
 
-    public Film getFilm() {
-        return film;
+    public String getFilm() {
+        return film != null ? film.toString() : null;
     }
 
     public void setFilm(Film film) {

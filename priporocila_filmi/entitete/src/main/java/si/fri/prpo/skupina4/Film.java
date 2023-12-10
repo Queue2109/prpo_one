@@ -35,12 +35,12 @@ public class Film implements Serializable {
 
     private Integer leto_izzida;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "zanr_id")
     private Zanr zanr;
     private Integer ocena;
 
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "film_igralec", joinColumns = @JoinColumn(name = "film_id"), inverseJoinColumns = @JoinColumn(name = "igralec_id"))
     private List<Igralec> zasedba;
 

@@ -55,13 +55,7 @@ public class FilmiVir {
         return Response.ok(fdto).build();
     }
 
-    @GET
-    @Path("topX")
-    public Response getTopXFilms(int x){
-        List<FilmDto> filmi = statFilmZrno.topXFilmov(x);
 
-        return Response.status(Response.Status.OK).entity(filmi).build();
-    }
 
 
     @POST

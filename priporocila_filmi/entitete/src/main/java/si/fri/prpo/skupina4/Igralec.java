@@ -28,7 +28,7 @@ public class Igralec implements Serializable {
 
     private String priimek;
 
-    @ManyToMany(mappedBy = "zasedba")
+    @ManyToMany(mappedBy = "zasedba", cascade = CascadeType.ALL)
     private List<Film> filmi;
 
     public Integer getIgralec_id() {

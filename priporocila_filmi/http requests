@@ -1,0 +1,33 @@
+curl -X GET http://localhost:8080/v1/filmi;
+
+curl -X GET http://localhost:8080/v1/filmi/1;
+
+curl -X GET http://localhost:8080/v1/zanr;
+
+curl -X GET http://localhost:8080/v1/zanr/1;
+
+curl -X GET "http://localhost:8080/v1/ocene/topX?x=2"
+
+curl -X POST -H "Content-Type: application/json" -d '{
+  "ocena_id": null,
+  "uporabnik": {"uporabnik_id": 1, "ime": "John", "priimek": "Doe", "email": "john.doe@example.com"},
+  "film": {"film_id": 1, "naslov": "Sample Film", "opis": "This is a sample film", "leto_izzida": 2022},
+  "ocena": 4,
+  "komentar": "Good movie",
+  "cas_objave": "2023-01-01"
+}' http://localhost:8080/v1/ocene/dodaj
+
+curl -X GET "http://localhost:8080/v1/ocene/1"
+
+curl -X PUT -H "Content-Type: application/json" -d '{"cas_objave":"2023-11-10T17:08:57Z[UTC]","film":{"film_id":1,"naslov":"Shrek","opis":"Opis filma Shrek.","leto_izzida":2001,"zanr":{"zanr_id":1,"naziv":"komedija"},"ocena":8,"zasedba":[],"ocene":[]},"komentar":"Najboljsi film, kar sem ga kdajkoli gledal","ocena":9,"ocena_id":1,"uporabnik":{"uporabnik_id":1,"uporabnisko_ime":"petrakos","geslo":"geslo123","email":"petra.kos@hotmail.com","spol":"Z","starost":45,"zanr_preference":{},"ocene":{}}}'
+ http://localhost:8080/v1/ocene/posodobi/1
+
+
+curl -X POST -H "Content-Type: application/json" -d '{
+  "ocena_id": null,
+  "uporabnik": {"uporabnisko_ime":"petrakos", "geslo":"geslo123", "email":"petra.kos@hotmail.com", "spol":"Z", "starost":45, "zanr_preference":[], "ocene":[]},
+  "film": {"film_id": 1, "naslov": "Shrek", "opis": "Opis filma Shrek.", "leto_izzida": 2001, "zanr":{"zanr_id":1, "naziv":"komedija"}},
+  "ocena": 4,
+  "komentar": "Good movie",
+  "cas_objave": "2023-02-02"
+}' http://localhost:8080/v1/ocene/dodaj

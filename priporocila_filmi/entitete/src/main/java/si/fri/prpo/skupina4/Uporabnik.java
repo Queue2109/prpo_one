@@ -32,7 +32,7 @@ public class Uporabnik implements Serializable {
 
     private Integer starost;
 
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "uporabnik_zanr", joinColumns = @JoinColumn(name = "uporabnik_id"),
             inverseJoinColumns = @JoinColumn(name = "zanr_id"))
     private List<Zanr> zanr_preference;
