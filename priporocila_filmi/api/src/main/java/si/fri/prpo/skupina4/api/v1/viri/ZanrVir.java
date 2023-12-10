@@ -11,9 +11,12 @@ import si.fri.prpo.skupina4.zrna.ZanrZrno;
 
 import javax.inject.Inject;
 import javax.interceptor.Interceptors;
+import javax.json.bind.Jsonb;
+import javax.json.bind.JsonbBuilder;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import java.awt.desktop.SystemSleepEvent;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -50,7 +53,10 @@ public class ZanrVir {
         List<Film> f = filmiZrno.getFilmsByZanr(zanrId);
         List<FilmDto> filmidto = new ArrayList<>(upravljanjeFilmovZrno.mapFilmToDTO(f));
 
-        return Response.status(Response.Status.OK).entity(filmidto).build();
+        Jsonb jsonb = JsonbBuilder.create();
+        String result = jsonb.toJson(filmidto);
+
+        return Response.status(Response.Status.OK).entity(result).build();
     }
 
 }

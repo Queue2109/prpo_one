@@ -1,6 +1,7 @@
 package si.fri.prpo.skupina4;
 
-import javax.persistence.*;
+import javax.persistence.*;;
+import java.io.Serializable;
 import java.util.List;
 
 @Entity(name = "film")
@@ -13,7 +14,7 @@ import java.util.List;
         // pridobi imena in priimke vseh igralcev
         @NamedQuery(name = "Film.getActors", query = "SELECT i.ime, i.priimek FROM film f JOIN f.zasedba i"),
         // pridobi vse filme, ki so določenega žanra
-        @NamedQuery(name = "Film.getAllFilmsByGenre", query = "SELECT f FROM film f WHERE f.zanr = :zanr"),
+        @NamedQuery(name = "Film.getAllFilmsByGenre", query = "SELECT f FROM film f WHERE f.zanr.zanr_id = :zanr"),
         // pridobi filme, ki so izšli po določenem letu
         @NamedQuery(name = "Film.getFilmsReleasedAfterYear", query = "SELECT f FROM film f WHERE f.leto_izzida > :leto"),
         // pridobi filme, ki imajo oceno višjo oz. enako od določene ocene
@@ -21,7 +22,7 @@ import java.util.List;
         // pridobi filme določenega žanra
         @NamedQuery(name = "Film.getFilmsByGenreName", query = "SELECT f FROM film f WHERE f.zanr.naziv = :zanrNaziv ")
 })
-public class Film {
+public class Film implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

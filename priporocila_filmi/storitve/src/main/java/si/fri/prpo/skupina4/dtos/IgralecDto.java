@@ -1,6 +1,9 @@
 package si.fri.prpo.skupina4.dtos;
 
 import si.fri.prpo.skupina4.Film;
+
+import javax.json.bind.Jsonb;
+import javax.json.bind.JsonbBuilder;
 import java.util.List;
 
 public class IgralecDto {
@@ -37,8 +40,10 @@ public class IgralecDto {
         this.priimek = priimek;
     }
 
-    public List<Film> getFilmi() {
-        return filmi;
+    public String getFilmi() {
+        Jsonb jsonb = JsonbBuilder.create();
+        String result = jsonb.toJson(filmi);
+        return result;
     }
 
     public void setFilmi(List<Film> filmi) {

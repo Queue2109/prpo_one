@@ -1,9 +1,6 @@
 INSERT INTO zanr (naziv) VALUES ('komedija');
 INSERT INTO zanr (naziv) VALUES ('drama');
 
-INSERT INTO film (naslov, opis, leto_izzida, zanr_id, ocena) VALUES ('Shrek', 'Opis filma Shrek.', 2001, 1, 8);
-INSERT INTO film (naslov, opis, leto_izzida, zanr_id, ocena) VALUES ('Shrek 2', 'Opis filma Shrek 2.', 2004, 1, 7);
-
 INSERT INTO igralec (ime, priimek) VALUES ('Eddie', 'Murphy');
 INSERT INTO igralec (ime, priimek) VALUES ('Cameron', 'Diaz');
 INSERT INTO igralec (ime, priimek) VALUES ('Chris', 'Miller');
@@ -13,6 +10,9 @@ INSERT INTO film_igralec (film_id, igralec_id) VALUES (1, 2);
 INSERT INTO film_igralec (film_id, igralec_id) VALUES (1, 3);
 INSERT INTO film_igralec (film_id, igralec_id) VALUES (2, 1);
 INSERT INTO film_igralec (film_id, igralec_id) VALUES (2, 2);
+
+INSERT INTO film (naslov, opis, leto_izzida, zanr_id, ocena) VALUES ('Shrek', 'Opis filma Shrek.', 2001, 1, 8);
+INSERT INTO film (naslov, opis, leto_izzida, zanr_id, ocena) VALUES ('Shrek 2', 'Opis filma Shrek 2.', 2004, 1, 7);
 
 INSERT INTO uporabnik (uporabnisko_ime, geslo, email, spol, starost) VALUES ('petrakos', 'geslo123', 'petra.kos@hotmail.com', 'Z', 45);
 INSERT INTO uporabnik (uporabnisko_ime, geslo, email, spol, starost) VALUES ('mihakovac', 'geslo456', 'miha.kovac@gmail.com', 'M', 23);

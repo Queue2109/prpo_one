@@ -11,6 +11,8 @@ import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
+import javax.json.bind.Jsonb;
+import javax.json.bind.JsonbBuilder;
 import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
@@ -96,11 +98,12 @@ public class UpravljanjeFilmovZrno {
             log.warning("Zahtevana sta ime in priimek igralca!");
             return null;
         }
+        Jsonb jsonb = JsonbBuilder.create();
 
         Igralec igralec = new Igralec();
         igralec.setIme(igralecDto.getIme());
         igralec.setPriimek(igralecDto.getPriimek());
-        igralec.setFilmi(igralecDto.getFilmi());
+        igralec.setFilmi(jsonb.fromJson(igralecDto.getFilmi(), new ArrayList<Film>(){}.getClass().getGenericSuperclass()));
         igralciZrno.dodajIgralca(igralec);
         return igralec;
     }
@@ -123,6 +126,7 @@ public class UpravljanjeFilmovZrno {
         return ocena;
     }
 
+    Jsonb jsonb = JsonbBuilder.create();
     @Transactional
     public Film ustvariFilm(FilmDto filmDto) {
 
@@ -136,9 +140,9 @@ public class UpravljanjeFilmovZrno {
         film.setOpis(filmDto.getOpis());
         film.setLeto_izzida(filmDto.getLeto_izzida());
         film.setZanr(filmDto.getZanr());
-        film.setOcena(null);
-        film.setZasedba(filmDto.getZasedba());
-        film.setOcene(filmDto.getOcene());
+        film.setOcena(0);
+        film.setZasedba(jsonb.fromJson(filmDto.getZasedba(), new ArrayList<Igralec>(){}.getClass().getGenericSuperclass()));
+        // film.setOcene(filmDto.getOcene());
         filmiZrno.dodajFilm(film);
         return film;
     }
@@ -173,7 +177,7 @@ public class UpravljanjeFilmovZrno {
             film.setLeto_izzida(el.getLeto_izzida());
             film.setZanr(el.getZanr());
             film.setZasedba(el.getZasedba());
-            film.setOcene(el.getOcene());
+            film.setOcene(new ArrayList<>(el.getOcena()));
             result.add(film);
         }
         return result;

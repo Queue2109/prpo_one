@@ -1,9 +1,10 @@
 package si.fri.prpo.skupina4;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity(name = "film_igralec")
-public class FilmIgralec {
+public class FilmIgralec implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

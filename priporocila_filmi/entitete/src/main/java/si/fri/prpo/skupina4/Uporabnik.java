@@ -1,6 +1,7 @@
 package si.fri.prpo.skupina4;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.List;
 
 @Entity(name = "uporabnik")
@@ -15,7 +16,7 @@ import java.util.List;
         // pridobi imena žanrov, ki jih ima uporabnik najraje
         @NamedQuery(name = "Uporabnik.getGenrePreferences", query = "SELECT z.naziv FROM uporabnik u JOIN u.zanr_preference z WHERE u.uporabnik_id = :uporabnik_id")
 })
-public class Uporabnik {
+public class Uporabnik implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

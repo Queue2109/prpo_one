@@ -1,6 +1,7 @@
 package si.fri.prpo.skupina4;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Date;
 
 @Entity(name = "ocena")
@@ -15,7 +16,7 @@ import java.util.Date;
         // izbrisi oceno
         @NamedQuery(name = "Ocena.delete", query = "DELETE FROM ocena o WHERE o.ocena_id = :ocena_id ")
 })
-public class Ocena {
+public class Ocena implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer ocena_id;

@@ -1,6 +1,9 @@
 package si.fri.prpo.skupina4;
 
+import javax.json.bind.Jsonb;
+import javax.json.bind.JsonbBuilder;
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.List;
 
 @Entity(name = "igralec")
@@ -15,7 +18,7 @@ import java.util.List;
         // pridobi vsa imena in priimke igralcev
         @NamedQuery(name = "Igralec.getFullNames", query="SELECT i.ime, i.priimek FROM igralec i")
 })
-public class Igralec {
+public class Igralec implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -54,6 +57,13 @@ public class Igralec {
 
     public List<Film> getFilmi() {
         return filmi;
+    }
+
+    public String getFilmiJSON(){
+        Jsonb jsonb = JsonbBuilder.create();
+        List<Film> f = getFilmi();
+        String result = jsonb.toJson(f);
+        return result;
     }
 
     public void setFilmi(List<Film> filmi) {

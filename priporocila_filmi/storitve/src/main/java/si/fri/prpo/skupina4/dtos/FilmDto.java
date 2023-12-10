@@ -3,9 +3,14 @@ package si.fri.prpo.skupina4.dtos;
 import si.fri.prpo.skupina4.Igralec;
 import si.fri.prpo.skupina4.Ocena;
 import si.fri.prpo.skupina4.Zanr;
+
+import javax.json.bind.Jsonb;
+import javax.json.bind.JsonbBuilder;
+import java.io.Serializable;
 import java.util.List;
 
-public class FilmDto {
+public class FilmDto implements Serializable{
+    Jsonb jsonb = JsonbBuilder.create();
     private Integer film_id;
 
     private String naslov;
@@ -19,7 +24,7 @@ public class FilmDto {
 
     private List<Igralec> zasedba;
 
-    private List<Ocena> ocene;
+    private List<Integer> ocene;
 
     public Integer getFilm_id() {
         return film_id;
@@ -64,8 +69,8 @@ public class FilmDto {
     public Double getPovprecna_ocena() {
         int sum = 0;
         int n = 0;
-        for (Ocena o: this.ocene ){
-            sum += o.getOcena();
+        for (int o: this.ocene ){
+            sum += o;//.getOcena();
             n++;
         }
         povprecna_ocena = n > 0 ? sum/n : 0.;
@@ -76,19 +81,19 @@ public class FilmDto {
         this.povprecna_ocena = povprecna_ocena;
     }
 
-    public List<Igralec> getZasedba() {
-        return zasedba;
+    public String getZasedba() {
+        return jsonb.toJson(zasedba);
     }
 
     public void setZasedba(List<Igralec> zasedba) {
         this.zasedba = zasedba;
     }
 
-    public List<Ocena> getOcene() {
+    public List<Integer> getOcene() {
         return ocene;
     }
 
-    public void setOcene(List<Ocena> ocene) {
+    public void setOcene(List<Integer> ocene) {
         this.ocene = ocene;
     }
 }
