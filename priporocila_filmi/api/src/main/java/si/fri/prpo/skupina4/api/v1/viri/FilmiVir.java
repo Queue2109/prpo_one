@@ -1,7 +1,9 @@
 package si.fri.prpo.skupina4.api.v1.viri;
 
 import si.fri.prpo.skupina4.Film;
+import si.fri.prpo.skupina4.Igralec;
 import si.fri.prpo.skupina4.dtos.FilmDto;
+import si.fri.prpo.skupina4.dtos.IgralecDto;
 import si.fri.prpo.skupina4.interceptorji.BelezenjeKlicevInterceptor;
 import si.fri.prpo.skupina4.zrna.FilmiZrno;
 import si.fri.prpo.skupina4.zrna.UpravljanjeFilmovZrno;
@@ -60,5 +62,17 @@ public class FilmiVir {
         }
         return Response.status(Response.Status.CREATED).build();
     }
+
+//    @PUT
+//    @Path("posodobi/{id}")
+//    public Response posodobiFilm(@PathParam("id") Integer id, FilmDto filmDto){
+//        Film f = filmiZrno.getFilmById(id);
+//        if (f == null){
+//            return Response.status(Response.Status.BAD_REQUEST).build();
+//        }
+//        filmDto.setFilm_id(id);
+//        upravljanjeFilmovZrno.posodobiFilm(filmDto);
+//        return Response.status(Response.Status.OK).entity(filmDto).build();
+//    }
 
 }

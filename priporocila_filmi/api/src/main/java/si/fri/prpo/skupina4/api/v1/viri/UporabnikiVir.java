@@ -58,6 +58,7 @@ public class UporabnikiVir {
         if (u == null){
             return Response.status(Response.Status.BAD_REQUEST).build();
         }
+        uporabnikDto.setUporabnik_id(id);
         upravljanjeFilmovZrno.posodobiUporabnika(uporabnikDto);
         return Response.status(Response.Status.OK).entity(uporabnikDto).build();
     }

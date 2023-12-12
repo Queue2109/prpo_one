@@ -58,6 +58,7 @@ public class IgralciVir {
         if (i == null){
             return Response.status(Response.Status.BAD_REQUEST).build();
         }
+        igralecDto.setIgralec_id(id);
         upravljanjeFilmovZrno.posodobiIgralca(igralecDto);
         return Response.status(Response.Status.OK).entity(igralecDto).build();
     }

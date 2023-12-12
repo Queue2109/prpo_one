@@ -198,6 +198,10 @@ public class UpravljanjeFilmovZrno {
 
     public void posodobiIgralca(IgralecDto igralec) {
         Igralec i = igralciZrno.getIgralecById(igralec.getIgralec_id());
+        if(i == null) {
+            log.warning("Igralec ne obstaja!");
+            return;
+        }
         String ime = igralec.getIme();
         if(ime != null && !ime.isEmpty()) {
             i.setIme(ime);

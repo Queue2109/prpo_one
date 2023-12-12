@@ -80,6 +80,7 @@ public class OceneVir {
         if (o == null){
             return Response.status(Response.Status.BAD_REQUEST).build();
         }
+        ocenaDto.setOcena_id(id);
         upravljanjeFilmovZrno.posodobiOcenoFilma(ocenaDto);
         return Response.status(Response.Status.OK).entity(ocenaDto).build();
     }
