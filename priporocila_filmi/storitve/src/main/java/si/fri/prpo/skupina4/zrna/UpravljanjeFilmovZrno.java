@@ -16,8 +16,8 @@ import javax.interceptor.Interceptors;
 import javax.json.bind.Jsonb;
 import javax.json.bind.JsonbBuilder;
 import javax.transaction.Transactional;
+import java.sql.Date;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -119,7 +119,8 @@ public class UpravljanjeFilmovZrno {
         if(komentar != null && !komentar.isEmpty()) {
             ocena.setKomentar(komentar);
         }
-        ocena.setCas_objave(ocenaDto.getCas_objave());
+        ocena.setCas_objave(new Date(System.currentTimeMillis()));
+        ocenaDto.setCas_objave((Date) ocena.getCas_objave());
         oceneZrno.dodajOceno(ocena);
         return ocena;
     }
@@ -133,9 +134,10 @@ public class UpravljanjeFilmovZrno {
         film.setNaslov(filmDto.getNaslov());
         film.setLeto_izzida(filmDto.getLeto_izzida());
         film.setZanr(filmDto.getZanr());
+
         film.setZasedba(jsonb.fromJson(filmDto.getZasedba(), new ArrayList<Igralec>(){}.getClass().getGenericSuperclass()));
 
-        Double ocena = (Double) filmDto.getPovprecna_ocena();
+        Double ocena = filmDto.getPovprecna_ocena();
         if(ocena != null) {
             film.setOcena(ocena.intValue());
         }
@@ -155,7 +157,7 @@ public class UpravljanjeFilmovZrno {
         o.setCas_objave(ocena.getCas_objave());
 
         String komentar = ocena.getKomentar();
-        if(komentar != null && komentar.length() > 0) {
+        if(komentar != null && komentar.isEmpty()) {
             o.setKomentar(komentar);
         }
         if(validirajOceno(ocena)){
@@ -214,7 +216,7 @@ public class UpravljanjeFilmovZrno {
 
     private Boolean validirajOceno(OcenaDto oDTO){
         Integer ocena = oDTO.getOcena();
-        return ocena != null && (ocena < 0 || ocena > 10 )&&  ocena % 1 != 0;
+        return ocena != null && (ocena < 0 || ocena > 10 );
     }
 
     public List<FilmDto> mapFilmToDTO(List<Film> seznam){

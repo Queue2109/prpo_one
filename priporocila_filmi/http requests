@@ -60,3 +60,13 @@ curl -X POST -H "Content-Type: application/json" -d '{
   "komentar": "The best movie of all times",
   "cas_objave": "2023-12-11"
 }' http://localhost:8080/v1/ocene/dodaj
+
+curl -X POST -H "Content-Type: application/json" -d '{
+    "naslov": "Pitch perfect",
+    "zanr": {"zanr_id": 1, "naziv": "komedija"},
+    "leto_izzida": 2023,
+    "zasedba": [{"igralec_id": 1, "ime":"Eddie", "priimek": "Murphy"}],
+    "opis": "Ful dober film",
+    "ocene": [{"ocena_id": 1, "film_id":1, "ocena":10, "komentar": "Najboljsi film, kar sem ga kdajkoli gledal"}]
+
+}' http://localhost:8080/v1/filmi/dodaj

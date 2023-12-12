@@ -67,6 +67,7 @@ public class FilmDto implements Serializable{
     }
 
     public Double getPovprecna_ocena() {
+        if(povprecna_ocena == null) return null;
         int sum = 0;
         int n = 0;
         for (Ocena o: this.ocene ){

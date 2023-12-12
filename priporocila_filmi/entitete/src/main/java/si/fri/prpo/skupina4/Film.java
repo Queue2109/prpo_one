@@ -115,16 +115,30 @@ public class Film implements Serializable {
 
     @Override
     public String toString() {
-        return "Film{" +
-                "film_id=" + film_id +
-                ", naslov='" + naslov + '\'' +
-                ", opis='" + opis + '\'' +
-                ", leto_izzida=" + leto_izzida +
-                ", zanr=" + zanr.toString() +
-                ", ocena=" + ocena +
-                ", zasedba=" + zasedba.toString() +
-                ", ocene=" + ocene.toString() +
-                '}';
+        StringBuilder film = new StringBuilder();
+        film.append("Film{");
+        film.append("film_id=").append(film_id);
+        film.append(", naslov='").append(naslov).append('\'');
+        if(opis != null && !opis.isEmpty()) {
+            film.append(", opis='").append(opis).append('\'');
+        }
+        if(leto_izzida != null) {
+            film.append(", leto_izzida=").append(leto_izzida);
+        }
+        if(zanr != null) {
+            film.append(", zanr=").append(zanr.toString());
+        }
+        if(ocena != null) {
+            film.append(", ocena=").append(ocena);
+        }
+        if(zasedba != null) {
+            film.append(", zasedba=").append(zasedba.toString());
+        }
+        if(ocene != null) {
+            film.append(", ocene=").append(ocene.toString());
+        }
+        film.append('}');
+        return film.toString();
     }
 
 }

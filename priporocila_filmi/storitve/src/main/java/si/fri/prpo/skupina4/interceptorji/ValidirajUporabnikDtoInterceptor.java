@@ -22,6 +22,11 @@ public class ValidirajUporabnikDtoInterceptor {
                 log.severe(msg);
                 throw new NeveljavenVnosIzjema(msg);
             }
+            if(!uporabnik.getEmail().contains("@")) {
+                String msg = ("Email ni podan v pravi obliki!");
+                log.severe(msg);
+                throw new NeveljavenVnosIzjema(msg);
+            }
         }
         return context.proceed();
     }

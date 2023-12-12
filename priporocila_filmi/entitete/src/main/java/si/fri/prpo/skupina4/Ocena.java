@@ -1,7 +1,5 @@
 package si.fri.prpo.skupina4;
 
-import javax.json.bind.Jsonb;
-import javax.json.bind.JsonbBuilder;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
