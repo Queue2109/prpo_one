@@ -24,7 +24,7 @@ public class FilmDto implements Serializable{
 
     private List<Igralec> zasedba;
 
-    private List<Integer> ocene;
+    private List<Ocena> ocene;
 
     public Integer getFilm_id() {
         return film_id;
@@ -69,8 +69,8 @@ public class FilmDto implements Serializable{
     public Double getPovprecna_ocena() {
         int sum = 0;
         int n = 0;
-        for (int o: this.ocene ){
-            sum += o;//.getOcena();
+        for (Ocena o: this.ocene ){
+            sum += o.getOcena();
             n++;
         }
         povprecna_ocena = n > 0 ? sum/n : 0.;
@@ -89,11 +89,11 @@ public class FilmDto implements Serializable{
         this.zasedba = zasedba;
     }
 
-    public List<Integer> getOcene() {
+    public List<Ocena> getOcene() {
         return ocene;
     }
 
-    public void setOcene(List<Integer> ocene) {
+    public void setOcene(List<Ocena> ocene) {
         this.ocene = ocene;
     }
 }

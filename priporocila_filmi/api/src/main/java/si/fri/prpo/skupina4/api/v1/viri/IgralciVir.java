@@ -2,9 +2,7 @@ package si.fri.prpo.skupina4.api.v1.viri;
 
 import com.kumuluz.ee.rest.beans.QueryParameters;
 import si.fri.prpo.skupina4.Igralec;
-import si.fri.prpo.skupina4.Uporabnik;
 import si.fri.prpo.skupina4.dtos.IgralecDto;
-import si.fri.prpo.skupina4.dtos.UporabnikDto;
 import si.fri.prpo.skupina4.interceptorji.BelezenjeKlicevInterceptor;
 import si.fri.prpo.skupina4.zrna.UpravljanjeFilmovZrno;
 import si.fri.prpo.skupina4.zrna.IgralciZrno;

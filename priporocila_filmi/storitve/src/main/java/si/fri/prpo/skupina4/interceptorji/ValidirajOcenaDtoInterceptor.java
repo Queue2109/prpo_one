@@ -22,6 +22,10 @@ public class ValidirajOcenaDtoInterceptor {
                 String msg = ("Ocena mora imeti podanega uporabnika in film!");
                 log.severe(msg);
                 throw new NeveljavenVnosIzjema(msg);
+
+            } else if(ocena.getOcena() != null && ((ocena.getOcena() < 0) || (ocena.getOcena() > 10)) && ((ocena.getOcena() % 1) != 0)){
+                String msgg = ("Napaka pri ustvarjanju ocene - ocena mora biti med 0 in 10!");
+                throw new NeveljavenVnosIzjema(msgg);
             }
         }
         return context.proceed();

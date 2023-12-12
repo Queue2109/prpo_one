@@ -16,10 +16,9 @@ public class ValidirajUporabnikDtoInterceptor {
 
         if(context.getParameters().length == 1  && context.getParameters()[0] instanceof UporabnikDto) {
             UporabnikDto uporabnik = (UporabnikDto) context.getParameters()[0];
-            if(uporabnik.getUporabnisko_ime() == null || uporabnik.getUporabnisko_ime().isEmpty()
-            || uporabnik.getGeslo() == null || uporabnik.getGeslo().isEmpty()
+            if(uporabnik.getGeslo() == null || uporabnik.getGeslo().isEmpty()
             || uporabnik.getEmail() == null || uporabnik.getEmail().isEmpty()) {
-                String msg = ("Uporabniško ime, geslo in email so obvezni podatki!");
+                String msg = ("Email in geslo sta obvezna podatka!");
                 log.severe(msg);
                 throw new NeveljavenVnosIzjema(msg);
             }

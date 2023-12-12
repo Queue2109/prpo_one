@@ -17,6 +17,7 @@ import javax.json.bind.Jsonb;
 import javax.json.bind.JsonbBuilder;
 import javax.transaction.Transactional;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -57,24 +58,26 @@ public class UpravljanjeFilmovZrno {
     @Interceptors(ValidirajUporabnikDtoInterceptor.class)
     @Transactional
     public Uporabnik ustvariUporabnika(UporabnikDto uporabnikDto) {
-
-        if (uporabnikDto.getUporabnisko_ime() == null || uporabnikDto.getGeslo() == null || uporabnikDto.getEmail() == null) {
-            log.warning("Napaka pri ustvarjanju uporabnika - obezni parametri so uporabniško ime, geslo in email!");
-            return null;
-        }
-
         Uporabnik uporabnik = new Uporabnik();
-        uporabnik.setUporabnisko_ime(uporabnikDto.getUporabnisko_ime());
+        String uporabnisko_ime = uporabnikDto.getUporabnisko_ime();
+        if(uporabnisko_ime != null && !uporabnisko_ime.isEmpty()) {
+            uporabnik.setUporabnisko_ime(uporabnikDto.getUporabnisko_ime());
+        }
         uporabnik.setGeslo(uporabnikDto.getGeslo());
-        uporabnik.setStarost(uporabnikDto.getStarost());
-        uporabnik.setSpol(uporabnikDto.getSpol());
         uporabnik.setEmail(uporabnikDto.getEmail());
-        uporabnik.setZanr_preference(uporabnikDto.getZanr_preference());
-//        to je mela asistentka v kodi - should we implement it?
-//        uporabnik.setUstvarjen(Instant.now());
+        Integer starost = uporabnikDto.getStarost();
+        if(starost != null) {
+            uporabnik.setStarost(starost);
+        }
+        Character spol = uporabnikDto.getSpol();
+        if(spol != null) {
+            uporabnik.setSpol(spol);
+        }
+        List<Zanr> zanr_preference = uporabnikDto.getZanr_preference();
+        if(zanr_preference != null && !zanr_preference.isEmpty()) {
+            uporabnik.setZanr_preference(zanr_preference);
+        }
         uporabnikiZrno.dodajUporabnika(uporabnik);
-
-//        also, ona je mela return uporabnikiZrno.dodajUporabnika(uporabnik) ampak se ne sklada z return tipom
         return uporabnik;
     }
 
@@ -96,19 +99,27 @@ public class UpravljanjeFilmovZrno {
         Igralec igralec = new Igralec();
         igralec.setIme(igralecDto.getIme());
         igralec.setPriimek(igralecDto.getPriimek());
-        igralec.setFilmi(jsonb.fromJson(igralecDto.getFilmi(), new ArrayList<Film>(){}.getClass().getGenericSuperclass()));
+        String filmi = igralecDto.getFilmi();
+        if(filmi != null && !filmi.isEmpty()) {
+            igralec.setFilmi(jsonb.fromJson(filmi, new ArrayList<Film>(){}.getClass().getGenericSuperclass()));
+        }
         igralciZrno.dodajIgralca(igralec);
         return igralec;
     }
 
     @Interceptors(ValidirajOcenaDtoInterceptor.class)
     @Transactional
-    public Ocena ustvariOceno(OcenaDto ocenaDto) {Ocena ocena = new Ocena();
+    public Ocena ustvariOceno(OcenaDto ocenaDto) {
+        Ocena ocena = new Ocena();
+//        ti pogoji se preverijo v interceptorju
         ocena.setOcena(ocenaDto.getOcena());
-        ocena.setKomentar(ocenaDto.getKomentar());
-        ocena.setCas_objave(ocenaDto.getCas_objave());
-        ocena.setUporabnik(ocenaDto.getUporabnik());
         ocena.setFilm(ocenaDto.getFilm());
+        ocena.setUporabnik(ocenaDto.getUporabnik());
+        String komentar = ocenaDto.getKomentar();
+        if(komentar != null && !komentar.isEmpty()) {
+            ocena.setKomentar(komentar);
+        }
+        ocena.setCas_objave(ocenaDto.getCas_objave());
         oceneZrno.dodajOceno(ocena);
         return ocena;
     }
@@ -118,13 +129,23 @@ public class UpravljanjeFilmovZrno {
     @Transactional
     public Film ustvariFilm(FilmDto filmDto) {
         Film film = new Film();
+//        ti pogoji se preverijo v interceptorju
         film.setNaslov(filmDto.getNaslov());
-        film.setOpis(filmDto.getOpis());
         film.setLeto_izzida(filmDto.getLeto_izzida());
         film.setZanr(filmDto.getZanr());
-        film.setOcena(0);
         film.setZasedba(jsonb.fromJson(filmDto.getZasedba(), new ArrayList<Igralec>(){}.getClass().getGenericSuperclass()));
-        // film.setOcene(filmDto.getOcene());
+
+        Double ocena = (Double) filmDto.getPovprecna_ocena();
+        if(ocena != null) {
+            film.setOcena(ocena.intValue());
+        }
+        String opis = filmDto.getOpis();
+        if(opis != null && !opis.isEmpty()) {
+            film.setOpis(opis);
+        }
+        if(filmDto.getOcene() != null) {
+            film.setOcene(filmDto.getOcene());
+        }
         filmiZrno.dodajFilm(film);
         return film;
     }
@@ -205,7 +226,8 @@ public class UpravljanjeFilmovZrno {
             film.setLeto_izzida(el.getLeto_izzida());
             film.setZanr(el.getZanr());
             film.setZasedba(el.getZasedba());
-            film.setOcene(new ArrayList<>(el.getOcena()));
+            film.setPovprecna_ocena(el.getOcena().doubleValue());
+//            film.setOcene(el.getOcene());
             result.add(film);
         }
         return result;
