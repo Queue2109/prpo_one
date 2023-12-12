@@ -4,20 +4,15 @@ import si.fri.prpo.skupina4.Film;
 import si.fri.prpo.skupina4.dtos.FilmDto;
 import si.fri.prpo.skupina4.interceptorji.BelezenjeKlicevInterceptor;
 import si.fri.prpo.skupina4.zrna.FilmiZrno;
-import si.fri.prpo.skupina4.zrna.StatistikaZrno;
 import si.fri.prpo.skupina4.zrna.UpravljanjeFilmovZrno;
 
-import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
-import javax.interceptor.Interceptor;
 import javax.interceptor.Interceptors;
 import javax.ws.rs.*;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
-import java.util.ArrayList;
-import java.util.List;
 import com.kumuluz.ee.rest.beans.QueryParameters;
 
 // Root path /api/v1
@@ -35,30 +30,14 @@ public class FilmiVir {
     @Inject
     private UpravljanjeFilmovZrno upravljanjeFilmovZrno;
 
-    @Inject
-    private StatistikaZrno statFilmZrno;
 //    @GET
-//    public Response vrniFilme() {
-//        List<Film> filmi = new ArrayList<>(filmiZrno.getFilmi());
-//
-//        List<FilmDto> filmidto = upravljanjeFilmovZrno.mapFilmToDTO(filmi);
-//
-//        // return Response.ok(filmi).build();
-//        return Response
-//                .status(Response.Status.OK)
-//                .entity(filmidto)
-//                .header("X-Total-Count", filmi.size())
-//                .build();
+//    @Path("{id}")
+//    public Response getFilmById(@PathParam("id") Integer id){
+//        List<Film> f = new ArrayList<>();
+//        f.add(filmiZrno.getFilmById(id));
+//        List<FilmDto> fdto = upravljanjeFilmovZrno.mapFilmToDTO(f);
+//        return Response.ok(fdto).build();
 //    }
-
-    @GET
-    @Path("{id}")
-    public Response getFilmById(@PathParam("id") Integer id){
-        List<Film> f = new ArrayList<>();
-        f.add(filmiZrno.getFilmById(id));
-        List<FilmDto> fdto = upravljanjeFilmovZrno.mapFilmToDTO(f);
-        return Response.ok(fdto).build();
-    }
 
     @GET
     public Response pridobiFilme() {
@@ -72,7 +51,7 @@ public class FilmiVir {
 
 
     @POST
-    @Path("ustvariNovFilm")
+    @Path("dodaj")
     public Response ustvariNovFilm(FilmDto filmDto){
         Film novFilm = upravljanjeFilmovZrno.ustvariFilm(filmDto);
 

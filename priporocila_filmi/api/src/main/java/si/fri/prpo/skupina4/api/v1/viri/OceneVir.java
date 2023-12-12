@@ -54,8 +54,7 @@ public class OceneVir {
 //    }
 
     @GET
-    @Path("{id}")
-    public Response pridobiOceneByFilm(@PathParam("id") Integer id) {
+    public Response pridobiOcene() {
         QueryParameters query = QueryParameters.query(uriInfo.getRequestUri().getQuery()).build();
         Long oceneCount = oceneZrno.pridobiOceneCount(query);
         return Response

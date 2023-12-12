@@ -1,5 +1,8 @@
 package si.fri.prpo.skupina4.zrna;
 
+import com.kumuluz.ee.rest.beans.QueryParameters;
+import com.kumuluz.ee.rest.utils.JPAUtils;
+import si.fri.prpo.skupina4.Film;
 import si.fri.prpo.skupina4.Igralec;
 
 import javax.annotation.PostConstruct;
@@ -79,6 +82,21 @@ public class IgralciZrno {
         } catch (IllegalArgumentException | TransactionRequiredException e) {
             e.printStackTrace();
         }
+    }
+
+
+    public List<Igralec> pridobiIgralce() {
+        List<Igralec> igralci = em.createNamedQuery(("Igralec.getAll"), Igralec.class).getResultList();
+        return igralci;
+    }
+
+
+    public List<Igralec> pridobiIgralce(QueryParameters query) {
+        return JPAUtils.queryEntities(em, Igralec.class, query);
+    }
+
+    public Long pridobiIgralceCount(QueryParameters query) {
+        return JPAUtils.queryEntitiesCount(em, Igralec.class, query);
     }
 
 }

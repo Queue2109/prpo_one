@@ -6,7 +6,7 @@ import si.fri.prpo.skupina4.dtos.OcenaDto;
 import si.fri.prpo.skupina4.dtos.UporabnikDto;
 import si.fri.prpo.skupina4.dtos.ZanrDto;
 import si.fri.prpo.skupina4.dtos.FilmDto;
-import si.fri.prpo.skupina4.interceptorji.ValidirajUporabnikDtoInterceptor;
+import si.fri.prpo.skupina4.interceptorji.*;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
@@ -78,13 +78,9 @@ public class UpravljanjeFilmovZrno {
         return uporabnik;
     }
 
+    @Interceptors(ValidirajZanrDtoInterceptor.class)
     @Transactional
     public Zanr ustvariZanr(ZanrDto zanrDto) {
-
-        if(zanrDto.getNaziv() == null) {
-            log.warning("zahtevan je naziv žanra!");
-        }
-
         Zanr zanr = new Zanr();
         zanr.setNaziv(zanrDto.getNaziv());
         zanrZrno.dodajZanr(zanr);
@@ -92,13 +88,9 @@ public class UpravljanjeFilmovZrno {
         return zanr;
     }
 
+    @Interceptors(ValidirajIgralecDtoInterceptor.class)
     @Transactional
     public Igralec ustvariIgralca(IgralecDto igralecDto) {
-
-        if(igralecDto.getIme() == null || igralecDto.getPriimek() == null) {
-            log.warning("Zahtevana sta ime in priimek igralca!");
-            return null;
-        }
         Jsonb jsonb = JsonbBuilder.create();
 
         Igralec igralec = new Igralec();
@@ -109,15 +101,9 @@ public class UpravljanjeFilmovZrno {
         return igralec;
     }
 
+    @Interceptors(ValidirajOcenaDtoInterceptor.class)
     @Transactional
-    public Ocena ustvariOceno(OcenaDto ocenaDto) {
-
-        if(ocenaDto.getFilm() == null || ocenaDto.getUporabnik() == null) {
-            log.warning("Ocena mora imeti podan film ter uporabnika!");
-            return null;
-        }
-
-        Ocena ocena = new Ocena();
+    public Ocena ustvariOceno(OcenaDto ocenaDto) {Ocena ocena = new Ocena();
         ocena.setOcena(ocenaDto.getOcena());
         ocena.setKomentar(ocenaDto.getKomentar());
         ocena.setCas_objave(ocenaDto.getCas_objave());
@@ -128,14 +114,9 @@ public class UpravljanjeFilmovZrno {
     }
 
     Jsonb jsonb = JsonbBuilder.create();
+    @Interceptors(ValidirajFilmDtoInterceptor.class)
     @Transactional
     public Film ustvariFilm(FilmDto filmDto) {
-
-        if(filmDto.getNaslov() == null || filmDto.getZasedba() == null || filmDto.getLeto_izzida() == null || filmDto.getZanr() == null) {
-            log.warning("Manjkajoci parametri!");
-            return null;
-        }
-
         Film film = new Film();
         film.setNaslov(filmDto.getNaslov());
         film.setOpis(filmDto.getOpis());
@@ -190,6 +171,23 @@ public class UpravljanjeFilmovZrno {
             u.setZanr_preference(zanr);
         }
         uporabnikiZrno.posodobiUporabnika(u);
+    }
+
+    public void posodobiIgralca(IgralecDto igralec) {
+        Igralec i = igralciZrno.getIgralecById(igralec.getIgralec_id());
+        String ime = igralec.getIme();
+        if(ime != null && !ime.isEmpty()) {
+            i.setIme(ime);
+        }
+        String priimek = igralec.getPriimek();
+        if(priimek != null && !priimek.isEmpty()) {
+            i.setPriimek(priimek);
+        }
+        String filmi = igralec.getFilmi();
+        if(filmi != null && !filmi.isEmpty()) {
+            i.setFilmi(jsonb.fromJson(filmi, new ArrayList<Film>(){}.getClass().getGenericSuperclass()));
+        }
+        igralciZrno.posodobiIgralca(i);
     }
 
 

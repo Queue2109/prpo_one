@@ -29,8 +29,6 @@ public class UporabnikiVir {
 
     @Inject UpravljanjeFilmovZrno upravljanjeFilmovZrno;
 
-
-
     @GET
     public Response pridobiUporabnike() {
         QueryParameters query = QueryParameters.query(uriInfo.getRequestUri().getQuery()).build();

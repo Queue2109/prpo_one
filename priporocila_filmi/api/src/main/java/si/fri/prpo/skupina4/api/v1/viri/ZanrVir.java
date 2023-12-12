@@ -38,19 +38,6 @@ public class ZanrVir {
     @Inject
     UpravljanjeFilmovZrno upravljanjeFilmovZrno;
 
-//    @GET
-//    public Response vrniZanre(){
-//
-//        List<Zanr> zanri = zanrZrno.getZanri();
-//
-//        List<ZanrDto> zanriDto = new ArrayList<>(zanrZrno.mapZanrToDTO(zanri));
-//
-//        return Response
-//                .status(Response.Status.OK)
-//                .entity(zanriDto)
-//                .build();
-//    }
-
     @GET
     public Response pridobiZanre() {
         QueryParameters query = QueryParameters.query(uriInfo.getRequestUri().getQuery()).build();
@@ -73,7 +60,7 @@ public class ZanrVir {
     }
 
     @POST
-    @Path("ustvariNovZanr")
+    @Path("dodaj")
     public Response ustvariNovZanr(ZanrDto zanrDto){
         Zanr novZanr = upravljanjeFilmovZrno.ustvariZanr(zanrDto);
 
