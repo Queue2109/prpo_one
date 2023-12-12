@@ -1,5 +1,8 @@
 package si.fri.prpo.skupina4.zrna;
 
+import com.kumuluz.ee.rest.beans.QueryParameters;
+import com.kumuluz.ee.rest.utils.JPAUtils;
+import si.fri.prpo.skupina4.Film;
 import si.fri.prpo.skupina4.Uporabnik;
 
 import javax.annotation.PostConstruct;
@@ -82,5 +85,19 @@ public class UporabnikiZrno implements Serializable {
         } catch (IllegalArgumentException | TransactionRequiredException e) {
             e.printStackTrace();
         }
+    }
+
+    public List<Uporabnik> pridobiUporabnike() {
+        List<Uporabnik> uporabniki = em.createNamedQuery(("Uporabnik.getAll"), Uporabnik.class).getResultList();
+        return uporabniki;
+    }
+
+
+    public List<Uporabnik> pridobiUporabnike(QueryParameters query) {
+        return JPAUtils.queryEntities(em, Uporabnik.class, query);
+    }
+
+    public Long pridobiUporabnikeCount(QueryParameters query) {
+        return JPAUtils.queryEntitiesCount(em, Uporabnik.class, query);
     }
 }

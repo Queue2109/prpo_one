@@ -7,14 +7,18 @@ import si.fri.prpo.skupina4.zrna.FilmiZrno;
 import si.fri.prpo.skupina4.zrna.StatistikaZrno;
 import si.fri.prpo.skupina4.zrna.UpravljanjeFilmovZrno;
 
+import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.interceptor.Interceptor;
 import javax.interceptor.Interceptors;
 import javax.ws.rs.*;
+import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import javax.ws.rs.core.UriInfo;
 import java.util.ArrayList;
 import java.util.List;
+import com.kumuluz.ee.rest.beans.QueryParameters;
 
 // Root path /api/v1
 @Path("filmi")
@@ -22,6 +26,8 @@ import java.util.List;
 @Consumes(MediaType.APPLICATION_JSON)
 @Interceptors(BelezenjeKlicevInterceptor.class)
 public class FilmiVir {
+    @Context
+    protected UriInfo uriInfo;
 
     @Inject
     private FilmiZrno filmiZrno;
@@ -31,20 +37,19 @@ public class FilmiVir {
 
     @Inject
     private StatistikaZrno statFilmZrno;
-    @GET
-    public Response vrniFilme() {
-
-        List<Film> filmi = new ArrayList<>(filmiZrno.getFilmi());
-
-        List<FilmDto> filmidto = upravljanjeFilmovZrno.mapFilmToDTO(filmi);
-
-        // return Response.ok(filmi).build();
-        return Response
-                .status(Response.Status.OK)
-                .entity(filmidto)
-                .header("X-Total-Count", filmi.size())
-                .build();
-    }
+//    @GET
+//    public Response vrniFilme() {
+//        List<Film> filmi = new ArrayList<>(filmiZrno.getFilmi());
+//
+//        List<FilmDto> filmidto = upravljanjeFilmovZrno.mapFilmToDTO(filmi);
+//
+//        // return Response.ok(filmi).build();
+//        return Response
+//                .status(Response.Status.OK)
+//                .entity(filmidto)
+//                .header("X-Total-Count", filmi.size())
+//                .build();
+//    }
 
     @GET
     @Path("{id}")
@@ -55,7 +60,15 @@ public class FilmiVir {
         return Response.ok(fdto).build();
     }
 
-
+    @GET
+    public Response pridobiFilme() {
+        QueryParameters query = QueryParameters.query(uriInfo.getRequestUri().getQuery()).build();
+        Long filmiCount = filmiZrno.pridobiFilmeCount(query);
+        return Response
+                .ok(filmiZrno.pridobiFilme(query))
+                .header("X-Total-Count", filmiCount)
+                .build();
+    }
 
 
     @POST

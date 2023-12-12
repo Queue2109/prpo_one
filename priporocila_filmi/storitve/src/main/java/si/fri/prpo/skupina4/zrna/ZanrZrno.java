@@ -1,6 +1,9 @@
 package si.fri.prpo.skupina4.zrna;
 
+import com.kumuluz.ee.rest.beans.QueryParameters;
+import com.kumuluz.ee.rest.utils.JPAUtils;
 import si.fri.prpo.skupina4.Film;
+import si.fri.prpo.skupina4.Ocena;
 import si.fri.prpo.skupina4.Uporabnik;
 import si.fri.prpo.skupina4.Zanr;
 import si.fri.prpo.skupina4.dtos.FilmDto;
@@ -94,6 +97,14 @@ public class ZanrZrno {
             result.add(zanr);
         }
         return result;
+    }
+
+    public List<Zanr> pridobiZanre(QueryParameters query) {
+        return JPAUtils.queryEntities(em, Zanr.class, query);
+    }
+
+    public Long pridobiZanreCount(QueryParameters query) {
+        return JPAUtils.queryEntitiesCount(em, Zanr.class, query);
     }
 
 }

@@ -1,5 +1,6 @@
 package si.fri.prpo.skupina4.api.v1.viri;
 
+import com.kumuluz.ee.rest.beans.QueryParameters;
 import si.fri.prpo.skupina4.Ocena;
 import si.fri.prpo.skupina4.dtos.FilmDto;
 import si.fri.prpo.skupina4.dtos.OcenaDto;
@@ -11,8 +12,10 @@ import si.fri.prpo.skupina4.zrna.UpravljanjeFilmovZrno;
 import javax.inject.Inject;
 import javax.interceptor.Interceptors;
 import javax.ws.rs.*;
+import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import javax.ws.rs.core.UriInfo;
 import java.util.List;
 
 @Path("ocene")
@@ -21,6 +24,8 @@ import java.util.List;
 @Interceptors(BelezenjeKlicevInterceptor.class)
 public class OceneVir {
 
+    @Context
+    protected UriInfo uriInfo;
     @Inject
     private StatistikaZrno statFilmZrno;
     @Inject
@@ -38,14 +43,25 @@ public class OceneVir {
         return Response.status(Response.Status.OK).entity(filmi).build();
     }
 
+//    @GET
+//    @Path("{id}")
+//    public Response getOceneByFilm(@PathParam("id") Integer id){
+//        Ocena o = oceneZrno.getOcenaById(id);
+//        if (o == null){
+//            return Response.status(Response.Status.NO_CONTENT).build();
+//        }
+//        return Response.status(Response.Status.OK).entity(o).build();
+//    }
+
     @GET
     @Path("{id}")
-    public Response getOceneByFilm(@PathParam("id") Integer id){
-        Ocena o = oceneZrno.getOcenaById(id);
-        if (o == null){
-            return Response.status(Response.Status.NO_CONTENT).build();
-        }
-        return Response.status(Response.Status.OK).entity(o).build();
+    public Response pridobiOceneByFilm(@PathParam("id") Integer id) {
+        QueryParameters query = QueryParameters.query(uriInfo.getRequestUri().getQuery()).build();
+        Long oceneCount = oceneZrno.pridobiOceneCount(query);
+        return Response
+                .ok(oceneZrno.pridobiOcene(query))
+                .header("X-Total-Count", oceneCount)
+                .build();
     }
 
     @POST

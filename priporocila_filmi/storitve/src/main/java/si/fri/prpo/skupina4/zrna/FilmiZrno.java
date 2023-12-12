@@ -1,5 +1,6 @@
 package si.fri.prpo.skupina4.zrna;
 
+import com.kumuluz.ee.rest.utils.JPAUtils;
 import si.fri.prpo.skupina4.Film;
 import si.fri.prpo.skupina4.dtos.FilmDto;
 
@@ -11,8 +12,10 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.persistence.TransactionRequiredException;
 import javax.transaction.Transactional;
+import javax.ws.rs.BeanParam;
 import java.util.List;
 import java.util.logging.Logger;
+import com.kumuluz.ee.rest.beans.QueryParameters;
 
 @ApplicationScoped
 public class FilmiZrno {
@@ -86,5 +89,19 @@ public class FilmiZrno {
         Query query = em.createNamedQuery("Film.getAllFilmsByGenre");
         query.setParameter("zanr", zanrId);
         return query.getResultList();
+    }
+
+    public List<Film> pridobiFilme() {
+        List<Film> filmi = em.createNamedQuery(("Film.getAll"), Film.class).getResultList();
+        return filmi;
+    }
+
+
+    public List<Film> pridobiFilme(QueryParameters query) {
+        return JPAUtils.queryEntities(em, Film.class, query);
+    }
+
+    public Long pridobiFilmeCount(QueryParameters query) {
+        return JPAUtils.queryEntitiesCount(em, Film.class, query);
     }
 }

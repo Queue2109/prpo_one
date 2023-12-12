@@ -1,5 +1,8 @@
 package si.fri.prpo.skupina4.zrna;
 
+import com.kumuluz.ee.rest.beans.QueryParameters;
+import com.kumuluz.ee.rest.utils.JPAUtils;
+import si.fri.prpo.skupina4.Film;
 import si.fri.prpo.skupina4.Ocena;
 
 import javax.annotation.PostConstruct;
@@ -78,5 +81,19 @@ public class OceneZrno {
         } catch (IllegalArgumentException | TransactionRequiredException e) {
             e.printStackTrace();
         }
+    }
+
+    public List<Ocena> pridobiOcene() {
+        List<Ocena> ocene = em.createNamedQuery(("Ocena.getAll"), Ocena.class).getResultList();
+        return ocene;
+    }
+
+
+    public List<Ocena> pridobiOcene(QueryParameters query) {
+        return JPAUtils.queryEntities(em, Ocena.class, query);
+    }
+
+    public Long pridobiOceneCount(QueryParameters query) {
+        return JPAUtils.queryEntitiesCount(em, Ocena.class, query);
     }
 }

@@ -162,6 +162,35 @@ public class UpravljanjeFilmovZrno {
         oceneZrno.posodobiOceno(o);
     }
 
+    public void posodobiUporabnika (UporabnikDto uporabnik){
+        Uporabnik u = uporabnikiZrno.getUporabnikById(uporabnik.getUporabnik_id());
+        String uIme = uporabnik.getUporabnisko_ime();
+        if(uIme != null && !uIme.isEmpty()) {
+            u.setUporabnisko_ime(uIme);
+        }
+        String geslo = uporabnik.getGeslo();
+        if(geslo != null && !geslo.isEmpty()) {
+            u.setGeslo(geslo);
+        }
+        String email = uporabnik.getEmail();
+        if(email != null && !email.isEmpty()) {
+            u.setEmail(email);
+        }
+        Character spol = uporabnik.getSpol();
+        if(spol != null) {
+            u.setSpol(spol);
+        }
+        Integer starost = uporabnik.getStarost();
+        if(starost != null) {
+            u.setStarost(starost);
+        }
+        List<Zanr> zanr = uporabnik.getZanr_preference();
+        if(zanr != null && !zanr.isEmpty()) {
+            u.setZanr_preference(zanr);
+        }
+        uporabnikiZrno.posodobiUporabnika(u);
+    }
+
 
     private Boolean validirajOceno(OcenaDto oDTO){
         Integer ocena = oDTO.getOcena();
