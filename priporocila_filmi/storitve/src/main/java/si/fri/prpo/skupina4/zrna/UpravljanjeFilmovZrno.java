@@ -6,11 +6,13 @@ import si.fri.prpo.skupina4.dtos.OcenaDto;
 import si.fri.prpo.skupina4.dtos.UporabnikDto;
 import si.fri.prpo.skupina4.dtos.ZanrDto;
 import si.fri.prpo.skupina4.dtos.FilmDto;
+import si.fri.prpo.skupina4.interceptorji.ValidirajUporabnikDtoInterceptor;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
+import javax.interceptor.Interceptors;
 import javax.json.bind.Jsonb;
 import javax.json.bind.JsonbBuilder;
 import javax.transaction.Transactional;
@@ -52,8 +54,7 @@ public class UpravljanjeFilmovZrno {
     @Inject
     private OceneZrno oceneZrno;
 
-    // uporabnik: parametri za ustvarjanje uporabnika so uporabnisko ime, geslo, starost, spol, email
-
+    @Interceptors(ValidirajUporabnikDtoInterceptor.class)
     @Transactional
     public Uporabnik ustvariUporabnika(UporabnikDto uporabnikDto) {
 
