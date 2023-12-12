@@ -77,7 +77,7 @@ public class ZanrVir {
     public Response ustvariNovZanr(ZanrDto zanrDto){
         Zanr novZanr = upravljanjeFilmovZrno.ustvariZanr(zanrDto);
 
-        if (novZanr != null){
+        if (novZanr == null){
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
         }
         return Response.status(Response.Status.CREATED).build();

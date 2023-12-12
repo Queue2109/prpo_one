@@ -45,9 +45,9 @@ public class UporabnikiVir {
     @POST
     @Path("dodaj")
     public Response ustvariNovegaUporabnika(UporabnikDto uporabnikDto){
-        Uporabnik novFilm = upravljanjeFilmovZrno.ustvariUporabnika(uporabnikDto);
+        Uporabnik uporabnik = upravljanjeFilmovZrno.ustvariUporabnika(uporabnikDto);
 
-        if (novFilm != null){
+        if (uporabnik == null){
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
         }
         return Response.status(Response.Status.CREATED).build();

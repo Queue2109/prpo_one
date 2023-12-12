@@ -31,3 +31,11 @@ curl -X POST -H "Content-Type: application/json" -d '{
   "komentar": "Good movie",
   "cas_objave": "2023-02-02"
 }' http://localhost:8080/v1/ocene/dodaj
+
+curl -X POST -H "Content-Type: application/json" -d '{
+  {
+  "uporabnisko_ime":"janko",
+  "email": "jankometka@gmail.com",
+   "geslo":"jankometka"
+   }
+}' http://localhost:8080/v1/uporabniki/dodaj

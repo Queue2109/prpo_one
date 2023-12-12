@@ -76,7 +76,7 @@ public class FilmiVir {
     public Response ustvariNovFilm(FilmDto filmDto){
         Film novFilm = upravljanjeFilmovZrno.ustvariFilm(filmDto);
 
-        if (novFilm != null){
+        if (novFilm == null){
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
         }
         return Response.status(Response.Status.CREATED).build();

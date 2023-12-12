@@ -2,7 +2,6 @@ package si.fri.prpo.skupina4.zrna;
 
 import com.kumuluz.ee.rest.beans.QueryParameters;
 import com.kumuluz.ee.rest.utils.JPAUtils;
-import si.fri.prpo.skupina4.Film;
 import si.fri.prpo.skupina4.Uporabnik;
 
 import javax.annotation.PostConstruct;
