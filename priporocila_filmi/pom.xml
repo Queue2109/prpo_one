@@ -25,6 +25,9 @@
         <kumuluzee.version>4.1.0</kumuluzee.version>
         <postgresql.version>42.6.0</postgresql.version>
         <kumuluzee-rest.version>2.0.1</kumuluzee-rest.version>
+        <kuuluzee-jpa.version>3.0.0</kuuluzee-jpa.version>
+        <kumuluzee-openapi.version>1.7.0</kumuluzee-openapi.version>
+        <kuuluzee-json-p.version>1.0.0</kuuluzee-json-p.version>
     </properties>
 
     <dependencyManagement>
@@ -63,6 +66,11 @@
                 <groupId>si.fri.prpo.skupina4</groupId>
                 <artifactId>entitete</artifactId>
                 <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.kumuluz.ee.openapi</groupId>
+                <artifactId>kumuluzee-openapi-mp</artifactId>
+                <version>${kumuluzee-openapi.version}</version>
             </dependency>
 
 
