@@ -1,5 +1,12 @@
 package si.fri.prpo.skupina4.api.v1.viri;
 
+import org.eclipse.microprofile.openapi.annotations.Operation;
+import org.eclipse.microprofile.openapi.annotations.enums.SchemaType;
+import org.eclipse.microprofile.openapi.annotations.headers.Header;
+import org.eclipse.microprofile.openapi.annotations.media.Content;
+import org.eclipse.microprofile.openapi.annotations.media.Schema;
+import org.eclipse.microprofile.openapi.annotations.responses.APIResponse;
+import org.eclipse.microprofile.openapi.annotations.responses.APIResponses;
 import si.fri.prpo.skupina4.Uporabnik;
 import si.fri.prpo.skupina4.dtos.UporabnikDto;
 import si.fri.prpo.skupina4.interceptorji.BelezenjeKlicevInterceptor;
@@ -29,6 +36,14 @@ public class UporabnikiVir {
 
     @Inject UpravljanjeFilmovZrno upravljanjeFilmovZrno;
 
+    @Operation(description = "Vrne seznam uporabnikov", summary = "Seznam uporabnikov.")
+    @APIResponses({
+            @APIResponse(responseCode = "200",
+                    description = "Seznam uporabnikov",
+                    content = @Content(schema = @Schema(implementation = Uporabnik.class, type = SchemaType.ARRAY)),
+                    headers = {@Header(name = "X-Total-Count", description = "Število vrnjenih uporabnikov")}
+            )
+    })
     @GET
     public Response pridobiUporabnike() {
         QueryParameters query = QueryParameters.query(uriInfo.getRequestUri().getQuery()).build();
@@ -39,7 +54,17 @@ public class UporabnikiVir {
                 .build();
     }
 
-
+    @Operation(description = "Dodaj uporabnika", summary = "Dodajanje novega uporabnika.")
+    @APIResponses({
+            @APIResponse(responseCode = "201",
+                    description = "Uporabnik uspešno dodan"),
+            @APIResponse(responseCode = "500",
+                    description = "Napaka na strežniku"),
+            @APIResponse(responseCode = "405",
+                    description = "Validacijska napaka"),
+            @APIResponse(responseCode = "400",
+                    description = "Napaka pri dodajanju uporabnika")
+    })
     @POST
     @Path("dodaj")
     public Response ustvariNovegaUporabnika(UporabnikDto uporabnikDto){
@@ -51,6 +76,20 @@ public class UporabnikiVir {
         return Response.status(Response.Status.CREATED).build();
     }
 
+
+    @Operation(description = "Posodobi uporabnika", summary = "Posodabljanje uporabnika.")
+    @APIResponses({
+            @APIResponse(responseCode = "200",
+                    description = "Uporabnik uspešno posodobljen",
+                    content = @Content(schema = @Schema(implementation = Uporabnik.class))
+            ),
+            @APIResponse(responseCode = "400",
+                    description = "Neveljaven ID uporabnika"
+            ),
+            @APIResponse(responseCode = "404",
+                    description = "Uporabnik ne obstaja"
+            )
+    })
     @PUT
     @Path("posodobi/{id}")
     public Response posodobiUporabnika(@PathParam("id") Integer id, UporabnikDto uporabnikDto){

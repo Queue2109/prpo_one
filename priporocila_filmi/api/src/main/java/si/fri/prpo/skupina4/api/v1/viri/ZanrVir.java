@@ -1,7 +1,15 @@
 package si.fri.prpo.skupina4.api.v1.viri;
 
 import com.kumuluz.ee.rest.beans.QueryParameters;
+import org.eclipse.microprofile.openapi.annotations.Operation;
+import org.eclipse.microprofile.openapi.annotations.enums.SchemaType;
+import org.eclipse.microprofile.openapi.annotations.headers.Header;
+import org.eclipse.microprofile.openapi.annotations.media.Content;
+import org.eclipse.microprofile.openapi.annotations.media.Schema;
+import org.eclipse.microprofile.openapi.annotations.responses.APIResponse;
+import org.eclipse.microprofile.openapi.annotations.responses.APIResponses;
 import si.fri.prpo.skupina4.Film;
+import si.fri.prpo.skupina4.Uporabnik;
 import si.fri.prpo.skupina4.Zanr;
 import si.fri.prpo.skupina4.dtos.FilmDto;
 import si.fri.prpo.skupina4.dtos.ZanrDto;
@@ -38,6 +46,14 @@ public class ZanrVir {
     @Inject
     UpravljanjeFilmovZrno upravljanjeFilmovZrno;
 
+    @Operation(description = "Vrne seznam žanrov", summary = "Seznam Žanrov.")
+    @APIResponses({
+            @APIResponse(responseCode = "200",
+                    description = "Seznam žanrov",
+                    content = @Content(schema = @Schema(implementation = Zanr.class, type = SchemaType.ARRAY)),
+                    headers = {@Header(name = "X-Total-Count", description = "Število vrnjenih žanrov")}
+            )
+    })
     @GET
     public Response pridobiZanre() {
         QueryParameters query = QueryParameters.query(uriInfo.getRequestUri().getQuery()).build();
@@ -47,6 +63,13 @@ public class ZanrVir {
                 .header("X-Total-Count", zanriCount)
                 .build();
     }
+
+    @Operation(description = "Vrne podrobnosti žanra", summary = "Podrobnosti žanra.")
+    @APIResponses({
+            @APIResponse(responseCode = "200",
+                    description = "Podrobnosti žanra",
+                    content = @Content(schema = @Schema(implementation = Zanr.class, type = SchemaType.ARRAY)))
+    })
     @GET
     @Path("{id}")
     public Response getFilmsByZanr(@PathParam("id") Integer zanrId){
@@ -59,6 +82,17 @@ public class ZanrVir {
         return Response.status(Response.Status.OK).entity(result).build();
     }
 
+    @Operation(description = "Dodaj žanr", summary = "Dodajanje novega žanra")
+    @APIResponses({
+            @APIResponse(responseCode = "201",
+                    description = "Žanr uspešno dodan"),
+            @APIResponse(responseCode = "500",
+                    description = "Napaka na strežniku"),
+            @APIResponse(responseCode = "405",
+                    description = "Validacijska napaka"),
+            @APIResponse(responseCode = "400",
+                    description = "Napaka pri dodajanju žanra")
+    })
     @POST
     @Path("dodaj")
     public Response ustvariNovZanr(ZanrDto zanrDto){

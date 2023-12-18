@@ -238,4 +238,16 @@ public class UpravljanjeFilmovZrno {
         }
         return result;
     }
+
+    // delete ocena from film
+    public Boolean odstraniOceno(Integer filmId, Integer ocenaId) {
+        Film film = filmiZrno.getFilmById(filmId);
+        Ocena ocena = oceneZrno.getOcenaById(ocenaId);
+        if(film != null && ocena != null) {
+            film.getOcene().remove(ocena);
+            filmiZrno.posodobiFilm(film);
+            return true;
+        }
+        return false;
+    }
 }
