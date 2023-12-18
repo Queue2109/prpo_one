@@ -25,9 +25,10 @@
         <kumuluzee.version>4.1.0</kumuluzee.version>
         <postgresql.version>42.6.0</postgresql.version>
         <kumuluzee-rest.version>2.0.1</kumuluzee-rest.version>
-        <kuuluzee-jpa.version>3.0.0</kuuluzee-jpa.version>
-        <kumuluzee-openapi.version>1.7.0</kumuluzee-openapi.version>
-        <kuuluzee-json-p.version>1.0.0</kuuluzee-json-p.version>
+        <kumuluzee-jpa.version>3.0.0</kumuluzee-jpa.version>
+        <kumuluzee-json-p.version>1.0.0</kumuluzee-json-p.version>
+        <kumuluzee-openapi-mp.version>1.4.0</kumuluzee-openapi-mp.version>
+        <kumuluzee-config-mp.version>2.0.0</kumuluzee-config-mp.version>
     </properties>
 
     <dependencyManagement>
@@ -70,7 +71,17 @@
             <dependency>
                 <groupId>com.kumuluz.ee.openapi</groupId>
                 <artifactId>kumuluzee-openapi-mp</artifactId>
-                <version>${kumuluzee-openapi.version}</version>
+                <version>${kumuluzee-openapi-mp.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.kumuluz.ee.openapi</groupId>
+                <artifactId>kumuluzee-openapi-mp-ui</artifactId>
+                <version>${kumuluzee-openapi-mp.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.kumuluz.ee.config</groupId>
+                <artifactId>kumuluzee-config-mp</artifactId>
+                <version>${kumuluzee-config-mp.version}</version>
             </dependency>
 
 
@@ -78,5 +89,5 @@
     </dependencyManagement>
 
     <!-- samo <dependencyManagement>, <dependencies> ni, ker nimamo kode na tem nivoju -->
-    
+
 </project>

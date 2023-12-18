@@ -8,6 +8,9 @@ kumuluzee:
       connection-url: jdbc:postgresql://localhost:5432/priporocila
       username: postgres
       password: postgres
-
+  dev:
+    scan-libraries:
+      - entitete
+      - storitve
 
 
