@@ -9,7 +9,9 @@ import org.eclipse.microprofile.openapi.annotations.parameters.RequestBody;
 import org.eclipse.microprofile.openapi.annotations.responses.APIResponse;
 import org.eclipse.microprofile.openapi.annotations.responses.APIResponses;
 import si.fri.prpo.skupina4.Film;
+import si.fri.prpo.skupina4.Igralec;
 import si.fri.prpo.skupina4.dtos.FilmDto;
+import si.fri.prpo.skupina4.dtos.LoveCalcApiOdjemalecDto;
 import si.fri.prpo.skupina4.interceptorji.BelezenjeKlicevInterceptor;
 import si.fri.prpo.skupina4.odjemalci.LoveCalcApiOdjemalec;
 import si.fri.prpo.skupina4.zrna.FilmiZrno;
@@ -23,6 +25,8 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 import com.kumuluz.ee.rest.beans.QueryParameters;
+
+import java.util.List;
 
 // Root path /api/v1
 @Path("filmi")
@@ -165,4 +169,17 @@ public class FilmiVir {
             return Response.status(Response.Status.NOT_FOUND).build();
     }
 
+
+    @GET
+    @Path("{id}/love/{ime1}/{ime2}")
+    public Response getLove(@PathParam("id") Integer id, @PathParam("ime1") String ime1, @PathParam("ime2") String ime2){
+        Film f = filmiZrno.getFilmById(id);
+        if (f == null){
+            return Response.status(Response.Status.BAD_REQUEST).build();
+        }
+        List<Igralec> list = f.getZasedba();
+
+        LoveCalcApiOdjemalecDto rezultat = loveCalcApiOdjemalec.getLoveCalc(ime1, ime2);
+        return Response.status(Response.Status.OK).entity(rezultat).build();
+    }
 }

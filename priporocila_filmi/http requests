@@ -70,3 +70,20 @@ curl -X POST -H "Content-Type: application/json" -d '{
     "ocene": [{"ocena_id": 1, "film_id":1, "ocena":10, "komentar": "Najboljsi film, kar sem ga kdajkoli gledal"}]
 
 }' http://localhost:8080/v1/filmi/dodaj
+
+
+
+/*{
+      "film_id": 3,
+      "leto_izzida": 2022,
+      "naslov": "Shrek 3",
+      "ocena": 3,
+      "ocene": [
+      ],
+      "opis": "Opis filma Shrek 3.",
+      "zanr": {
+        "naziv": "komedija",
+        "zanr_id": 1
+      },
+      "zasedba": []
+    }*/
