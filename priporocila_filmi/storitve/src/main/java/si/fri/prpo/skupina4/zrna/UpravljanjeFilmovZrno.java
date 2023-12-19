@@ -217,6 +217,35 @@ public class UpravljanjeFilmovZrno {
         igralciZrno.posodobiIgralca(i);
     }
 
+    public void posodobiFilm(FilmDto filmDto) {
+        Film film = filmiZrno.pridobiFilm(filmDto.getFilm_id());
+        String naslov = filmDto.getNaslov();
+        if(naslov != null && !naslov.isEmpty()) {
+            film.setNaslov(naslov);
+        }
+        String opis = filmDto.getOpis();
+        if( opis != null && !opis.isEmpty()) {
+            film.setNaslov(opis);
+        }
+        Integer leto = filmDto.getLeto_izzida();
+        if(leto != null) {
+            film.setLeto_izzida(leto);
+        }
+        Zanr zanr = filmDto.getZanr();
+        if(zanr != null) {
+            film.setZanr(zanr);
+        }
+        String zasedba = filmDto.getZasedba();
+        if(zasedba != null) {
+            film.setZasedba(jsonb.fromJson(zasedba, new ArrayList<Igralec>(){}.getClass().getGenericSuperclass()));
+        }
+
+        List<Ocena> ocene = filmDto.getOcene();
+        if(ocene != null) {
+            film.setOcene(ocene);
+        }
+        filmiZrno.posodobiFilm(film);
+    }
 
     private Boolean validirajOceno(OcenaDto oDTO){
         Integer ocena = oDTO.getOcena();

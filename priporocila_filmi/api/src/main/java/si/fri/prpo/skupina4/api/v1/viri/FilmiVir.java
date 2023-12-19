@@ -121,28 +121,26 @@ public class FilmiVir {
         return Response.status(Response.Status.CREATED).build();
     }
 
-//    @POST
-//    @Path("dodaj")
-//    public Response ustvariNovFilm(FilmDto filmDto){
-//        Film novFilm = upravljanjeFilmovZrno.ustvariFilm(filmDto);
-//
-//        if (novFilm == null){
-//            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
-//        }
-//        return Response.status(Response.Status.CREATED).build();
-//    }
-
-//    @PUT
-//    @Path("posodobi/{id}")
-//    public Response posodobiFilm(@PathParam("id") Integer id, FilmDto filmDto){
-//        Film f = filmiZrno.getFilmById(id);
-//        if (f == null){
-//            return Response.status(Response.Status.BAD_REQUEST).build();
-//        }
-//        filmDto.setFilm_id(id);
-//        upravljanjeFilmovZrno.posodobiFilm(filmDto);
-//        return Response.status(Response.Status.OK).entity(filmDto).build();
-//    }
+    @Operation(description = "posodobi film", summary = "Posodobitev filma")
+    @APIResponses({
+            @APIResponse(responseCode = "200",
+                    description = "Film uspešno posodobljen"),
+            @APIResponse(responseCode = "500",
+                    description = "Napaka na strežniku"),
+            @APIResponse(responseCode = "404",
+                    description = "Film ne obstaja")
+    })
+    @PUT
+    @Path("posodobi/{id}")
+    public Response posodobiFilm(@PathParam("id") Integer id, FilmDto filmDto){
+        Film f = filmiZrno.getFilmById(id);
+        if (f == null){
+            return Response.status(Response.Status.BAD_REQUEST).build();
+        }
+        filmDto.setFilm_id(id);
+        upravljanjeFilmovZrno.posodobiFilm(filmDto);
+        return Response.status(Response.Status.OK).entity(filmDto).build();
+    }
 
     @Operation(description = "izbriši oceno filmu", summary = "Brisanje ocene filma")
     @APIResponses({
