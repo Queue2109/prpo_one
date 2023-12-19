@@ -9,10 +9,9 @@ import org.eclipse.microprofile.openapi.annotations.parameters.RequestBody;
 import org.eclipse.microprofile.openapi.annotations.responses.APIResponse;
 import org.eclipse.microprofile.openapi.annotations.responses.APIResponses;
 import si.fri.prpo.skupina4.Film;
-import si.fri.prpo.skupina4.Igralec;
 import si.fri.prpo.skupina4.dtos.FilmDto;
-import si.fri.prpo.skupina4.dtos.IgralecDto;
 import si.fri.prpo.skupina4.interceptorji.BelezenjeKlicevInterceptor;
+import si.fri.prpo.skupina4.odjemalci.LoveCalcApiOdjemalec;
 import si.fri.prpo.skupina4.zrna.FilmiZrno;
 import si.fri.prpo.skupina4.zrna.UpravljanjeFilmovZrno;
 
@@ -39,6 +38,9 @@ public class FilmiVir {
 
     @Inject
     private UpravljanjeFilmovZrno upravljanjeFilmovZrno;
+
+    @Inject
+    private LoveCalcApiOdjemalec loveCalcApiOdjemalec;
 
 //    @GET
 //    @Path("{id}")
@@ -100,7 +102,7 @@ public class FilmiVir {
             @RequestBody(description = "DTO objekt filma",
                         required = true,
                         content = @Content(schema = @Schema(implementation = Film.class)))
-            FilmDto filmDto) {;
+            FilmDto filmDto) {
 
         Film novFilm = upravljanjeFilmovZrno.ustvariFilm(filmDto);
 
@@ -150,8 +152,10 @@ public class FilmiVir {
             return Response.status(Response.Status.BAD_REQUEST).build();
         }
 
-        if(upravljanjeFilmovZrno.odstraniOceno(f_id, o_id));
-        return Response.status(Response.Status.OK).entity(f_id).build();
+        if(upravljanjeFilmovZrno.odstraniOceno(f_id, o_id))
+            return Response.status(Response.Status.OK).entity(f_id).build();
+        else
+            return Response.status(Response.Status.NOT_FOUND).build();
     }
 
 }
