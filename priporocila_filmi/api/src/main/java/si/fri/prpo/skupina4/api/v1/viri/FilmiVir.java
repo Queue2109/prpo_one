@@ -51,11 +51,20 @@ public class FilmiVir {
 //        return Response.ok(fdto).build();
 //    }
 
-  /*  @Operation(description = "Vrne podrobnosti filma", summary = "Podrobnosti filma.")
+//    @Operation(description = "Vrne podrobnosti filma", summary = "Podrobnosti filma."),
+//    @APIResponses({
+//            @APIResponse(responseCode = "200",
+//                    description = "Podrobnosti filma",
+//                    content = @Content(schema = @Schema(implementation = Film.class, type = SchemaType.ARRAY))
+//    }),
+//    @GET,
+//    @Path("{id}")
+
+    @Operation(description = "Vrne podrobnosti filma", summary = "Podrobnosti filma.")
     @APIResponses({
             @APIResponse(responseCode = "200",
                     description = "Podrobnosti filma",
-                    content = @Content(schema = @Schema(implementation = Film.class, type = SchemaType.ARRAY)),
+                    content = @Content(schema = @Schema(implementation = Film.class, type = SchemaType.OBJECT)))
     })
     @GET
     @Path("{id}")
@@ -66,7 +75,7 @@ public class FilmiVir {
         } else {
             return Response.status(Response.Status.NOT_FOUND).build();
         }
-    }*/
+    }
 
     @Operation(description = "Vrne seznam vseh filmov", summary = "Seznam filmov.")
     @APIResponses({
