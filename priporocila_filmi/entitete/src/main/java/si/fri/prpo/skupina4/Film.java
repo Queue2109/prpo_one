@@ -1,5 +1,6 @@
 package si.fri.prpo.skupina4;
 
+import javax.json.bind.annotation.JsonbTransient;
 import javax.persistence.*;;
 import java.io.Serializable;
 import java.util.List;

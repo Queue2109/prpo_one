@@ -100,8 +100,30 @@ public class UpravljanjeFilmovZrno {
         igralec.setIme(igralecDto.getIme());
         igralec.setPriimek(igralecDto.getPriimek());
         String filmi = igralecDto.getFilmi();
+
         if(filmi != null && !filmi.isEmpty()) {
-            igralec.setFilmi(jsonb.fromJson(filmi, new ArrayList<Film>(){}.getClass().getGenericSuperclass()));
+            List<Film> film = (jsonb.fromJson(filmi, new ArrayList<Film>(){}.getClass().getGenericSuperclass()));
+            for (Film film1 : film) {
+                log.info("film: " + film1.toString());
+                Integer id = film1.getFilm_id();
+                log.info("id filma" + id);
+                if (id != null) {
+                    Film f = filmiZrno.getFilmById(id);
+                    if (f != null) {
+                        if (igralec.getFilmi() == null) {
+                            igralec.setFilmi(new ArrayList<>());
+                        }
+                        igralec.getFilmi().add(f);
+//                        log.info("Zasedba:" + f.getZasedba());
+//                      TODO:  dodajanje igralca v zasedbo se ne deluje for some reason
+//                        if(f.getZasedba().isEmpty() || f.getZasedba() == null) {
+//                            f.setZasedba(new ArrayList<>());
+//                        }
+//                        f.getZasedba().add(igralec);
+                    }
+                }
+
+            }
         }
         igralciZrno.dodajIgralca(igralec);
         return igralec;
@@ -136,6 +158,7 @@ public class UpravljanjeFilmovZrno {
         film.setZanr(filmDto.getZanr());
 
         film.setZasedba(jsonb.fromJson(filmDto.getZasedba(), new ArrayList<Igralec>(){}.getClass().getGenericSuperclass()));
+        log.info("Zasedba: " + film.getZasedba());
 
         Double ocena = filmDto.getPovprecna_ocena();
         if(ocena != null) {
@@ -148,6 +171,7 @@ public class UpravljanjeFilmovZrno {
         if(filmDto.getOcene() != null) {
             film.setOcene(filmDto.getOcene());
         }
+        filmDto.getPovprecna_ocena();
         filmiZrno.dodajFilm(film);
         return film;
     }
@@ -211,8 +235,20 @@ public class UpravljanjeFilmovZrno {
             i.setPriimek(priimek);
         }
         String filmi = igralec.getFilmi();
+
         if(filmi != null && !filmi.isEmpty()) {
-            i.setFilmi(jsonb.fromJson(filmi, new ArrayList<Film>(){}.getClass().getGenericSuperclass()));
+            List<Film> film = (jsonb.fromJson(filmi, new ArrayList<Film>(){}.getClass().getGenericSuperclass()));
+            for (Film film1 : film) {
+                log.info("film: " + film1.toString());
+                Integer id = film1.getFilm_id();
+                log.info("id filma" + id);
+                if(id != null) {
+                    Film f = filmiZrno.getFilmById(id);
+                    if(f != null) {
+                        i.getFilmi().add(f);
+                    }
+                }
+            }
         }
         igralciZrno.posodobiIgralca(i);
     }

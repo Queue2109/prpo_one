@@ -75,6 +75,7 @@ public class FilmDto implements Serializable{
             n++;
         }
         povprecna_ocena = n > 0 ? sum/n : 0.;
+        this.setPovprecna_ocena(povprecna_ocena);
         return povprecna_ocena;
     }
 
@@ -84,6 +85,9 @@ public class FilmDto implements Serializable{
 
     public String getZasedba() {
         return jsonb.toJson(zasedba);
+    }
+    public List<Igralec> getZasedbaList() {
+        return zasedba;
     }
 
     public void setZasedba(List<Igralec> zasedba) {

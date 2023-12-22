@@ -11,7 +11,7 @@ curl -X GET "http://localhost:8080/v1/ocene/topX?x=2"
 curl -X POST -H "Content-Type: application/json" -d '{
     "ime": "Sandra",
     "priimek": "Oh",
-    "filmi": ["film_id": 3, "naslov": "Grey's Anatomy", "opis": "TV show about doctors", "leto_izzida": 2005],
+    "filmi": [{"film_id": 3}]
 }' http://localhost:8080/v1/igralci/dodaj
 
 curl -X POST -H "Content-Type: application/json" -d '{
