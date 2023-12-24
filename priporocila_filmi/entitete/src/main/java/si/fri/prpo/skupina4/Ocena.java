@@ -86,14 +86,15 @@ public class Ocena implements Serializable {
 
     @Override
     public String toString() {
-        return "Ocena{" +
-                "ocena_id=" + ocena_id +
-                ", uporabnik=" + uporabnik +
-                ", film=" + film +
-                ", ocena=" + ocena +
-                ", komentar='" + komentar + '\'' +
-                ", cas_objave=" + cas_objave +
-                '}';
+        this.setCas_objave(new Date());
+        StringBuilder sb = new StringBuilder();
+        sb.append("Ocena{").append("ocena_id=").append(ocena_id).append('\'');;
+        sb.append(", uporabnik=").append(uporabnik.toString()).append('\'');;
+        sb.append(", film=").append(film.toString()).append('\'');;
+        sb.append(", ocena=").append(ocena).append('\'');;
+        sb.append(", komentar='").append(komentar).append('\'');
+        sb.append(", cas_objave=").append(cas_objave).append('\'');;
+        return sb.toString();
     }
 
 }

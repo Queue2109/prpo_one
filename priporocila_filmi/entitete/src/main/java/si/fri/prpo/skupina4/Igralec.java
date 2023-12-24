@@ -72,12 +72,17 @@ public class Igralec implements Serializable {
 
     @Override
     public String toString() {
+        StringBuilder sb = new StringBuilder();
+        for (Film f: filmi) {
+            sb.append(f.getFilm_id()).append(", ");
+        }
+        sb.reverse().replace(0,2,"").reverse().append("]");
         return "Igralec{" +
                 "igralec_id=" + igralec_id +
                 ", ime='" + ime + '\'' +
                 ", priimek='" + priimek + '\'' +
-                ", filmi=" + filmi +
-                '}';
+                ", filmi=[" + sb +
+                '}' + '\'';
     }
 
 }

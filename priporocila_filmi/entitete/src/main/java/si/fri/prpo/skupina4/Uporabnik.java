@@ -108,16 +108,20 @@ public class Uporabnik implements Serializable {
 
     @Override
     public String toString() {
-        return "Uporabnik{" +
-                "uporabnik_id=" + uporabnik_id +
-                ", uporabnisko_ime='" + uporabnisko_ime + '\'' +
-                ", geslo='" + geslo + '\'' +
-                ", email='" + email + '\'' +
-                ", spol=" + spol +
-                ", starost=" + starost +
-                ", zanr_preference=" + zanr_preference +
-                ", ocene=" + ocene +
-                '}';
+        StringBuilder sb = new StringBuilder();
+        sb.append("Uporabnik{" + "uporabnik_id=").append(uporabnik_id)
+        .append(", uporabnisko_ime='").append(uporabnisko_ime).append('\'')
+        .append(", geslo='").append(geslo).append('\'')
+        .append(", email='").append(email).append('\'')
+        .append(", spol=").append(spol).append('\'')
+        .append(", starost=").append(starost).append('\'')
+        .append(", zanr_id=[");
+        for (Zanr z : zanr_preference) {
+            sb.append(z.getZanr_id()).append(", ");
+        }
+        sb.reverse().delete(0, 2).reverse().append("]}").append('\'');;
+
+        return sb.toString();
     }
 
 

@@ -124,21 +124,29 @@ public class Film implements Serializable {
             film.append(", opis='").append(opis).append('\'');
         }
         if(leto_izzida != null) {
-            film.append(", leto_izzida=").append(leto_izzida);
+            film.append(", leto_izzida=").append(leto_izzida).append('\'');;
         }
         if(zanr != null) {
             film.append(", zanr=").append(zanr.toString());
         }
         if(ocena != null) {
-            film.append(", ocena=").append(ocena);
+            film.append(", ocena=").append(ocena).append('\'');;
         }
         if(zasedba != null) {
-            film.append(", zasedba=").append(zasedba.toString());
+            film.append(", zasedba=[");
+            for (Igralec i: zasedba) {
+                film.append(i.toString()).append(", ");
+            }
+            film.reverse().replace(0,2,"").reverse().append("]").append('\'');;
         }
         if(ocene != null) {
-            film.append(", ocene=").append(ocene.toString());
+            film.append(", ocene_id=[");
+            for (Ocena o: ocene) {
+                film.append(o.getOcena_id()).append(", ");
+            }
+            film.reverse().replace(0,2,"").reverse().append("]");
         }
-        film.append('}');
+        film.append('}').append('\'');;
         return film.toString();
     }
 
