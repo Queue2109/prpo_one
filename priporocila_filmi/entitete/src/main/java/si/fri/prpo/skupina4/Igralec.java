@@ -2,9 +2,13 @@ package si.fri.prpo.skupina4;
 
 import javax.json.bind.Jsonb;
 import javax.json.bind.JsonbBuilder;
+import javax.json.bind.annotation.JsonbTransient;
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity(name = "igralec")
 @NamedQueries(value = {
@@ -28,8 +32,9 @@ public class Igralec implements Serializable {
 
     private String priimek;
 
-    @ManyToMany(mappedBy = "zasedba", cascade = CascadeType.ALL)
-    private List<Film> filmi;
+    @ManyToMany(mappedBy = "zasedba")
+    @JsonbTransient
+    private Set<Film> filmi = new HashSet<>();
 
     public Integer getIgralec_id() {
         return igralec_id;
@@ -55,33 +60,41 @@ public class Igralec implements Serializable {
         this.priimek = priimek;
     }
 
-    public List<Film> getFilmi() {
+    public Set<Film> getFilmi() {
         return filmi;
+    }
+    private String filmi() {
+        return filmi.toString();
     }
 
     public String getFilmiJSON(){
-        Jsonb jsonb = JsonbBuilder.create();
-        List<Film> f = getFilmi();
-        String result = jsonb.toJson(f);
-        return result;
+        StringBuilder sb = new StringBuilder();
+        if(filmi != null) {
+            for (Film f : filmi) {
+                sb.append(f.toString()).append(", ");
+            }
+        }
+        return sb.toString();
     }
 
-    public void setFilmi(List<Film> filmi) {
+    public void setFilmi(Set<Film> filmi) {
         this.filmi = filmi;
     }
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        for (Film f: filmi) {
-            sb.append(f.getFilm_id()).append(", ");
+        if(filmi != null) {
+            for (Film f : filmi) {
+                sb.append(f.getFilm_id()).append(", ");
+            }
         }
         sb.reverse().replace(0,2,"").reverse().append("]");
         return "Igralec{" +
                 "igralec_id=" + igralec_id +
                 ", ime='" + ime + '\'' +
                 ", priimek='" + priimek + '\'' +
-                ", filmi=[" + sb +
+                ", filmiId=[" + sb +
                 '}' + '\'';
     }
 

@@ -99,8 +99,9 @@ public class FilmiZrno {
     public Film pridobiFilm(Integer id) {
         List<Film> filmi = this.getFilmi();
         for (Film f: filmi) {
-            if(id == f.getFilm_id())
+            if(id.equals(f.getFilm_id())) {
                 return f;
+            }
         }
         return null;
     }

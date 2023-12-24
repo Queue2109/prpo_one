@@ -18,7 +18,9 @@ import javax.json.bind.JsonbBuilder;
 import javax.transaction.Transactional;
 import java.sql.Date;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.logging.Logger;
 
 /**
@@ -99,32 +101,20 @@ public class UpravljanjeFilmovZrno {
         Igralec igralec = new Igralec();
         igralec.setIme(igralecDto.getIme());
         igralec.setPriimek(igralecDto.getPriimek());
-        String filmi = igralecDto.getFilmi();
-
-        if(filmi != null && !filmi.isEmpty()) {
-            List<Film> film = (jsonb.fromJson(filmi, new ArrayList<Film>(){}.getClass().getGenericSuperclass()));
-            for (Film film1 : film) {
-                log.info("film: " + film1.toString());
-                Integer id = film1.getFilm_id();
-                log.info("id filma" + id);
-                if (id != null) {
-                    Film f = filmiZrno.getFilmById(id);
-                    if (f != null) {
-                        if (igralec.getFilmi() == null) {
-                            igralec.setFilmi(new ArrayList<>());
-                        }
-                        igralec.getFilmi().add(f);
-//                        log.info("Zasedba:" + f.getZasedba());
-//                      TODO:  dodajanje igralca v zasedbo se ne deluje for some reason
-//                        if(f.getZasedba().isEmpty() || f.getZasedba() == null) {
-//                            f.setZasedba(new ArrayList<>());
-//                        }
-//                        f.getZasedba().add(igralec);
-                    }
+        Set<Film> filmi = new HashSet<>();
+        Set<Film> vneseniFilmi = igralecDto.getFilmiList();
+        for (Film film : vneseniFilmi) {
+            Integer id = film.getFilm_id();
+            if(id != null) {
+                Film f = filmiZrno.getFilmById(id);
+                if(f != null) {
+                    filmi.add(f);
+                    f.getZasedba().add(igralec);
                 }
-
             }
         }
+        log.info("Filmi: " + filmi);
+        igralec.setFilmi(filmi);
         igralciZrno.dodajIgralca(igralec);
         return igralec;
     }
@@ -191,6 +181,7 @@ public class UpravljanjeFilmovZrno {
         oceneZrno.posodobiOceno(o);
     }
 
+
     public void posodobiUporabnika (UporabnikDto uporabnik){
         Uporabnik u = uporabnikiZrno.getUporabnikById(uporabnik.getUporabnik_id());
         String uIme = uporabnik.getUporabnisko_ime();
@@ -238,17 +229,18 @@ public class UpravljanjeFilmovZrno {
 
         if(filmi != null && !filmi.isEmpty()) {
             List<Film> film = (jsonb.fromJson(filmi, new ArrayList<Film>(){}.getClass().getGenericSuperclass()));
-            for (Film film1 : film) {
-                log.info("film: " + film1.toString());
-                Integer id = film1.getFilm_id();
-                log.info("id filma" + id);
-                if(id != null) {
-                    Film f = filmiZrno.getFilmById(id);
-                    if(f != null) {
-                        i.getFilmi().add(f);
-                    }
-                }
-            }
+
+//            for (Film film1 : film) {
+//                log.info("film: " + film1.toString());
+//                Integer id = film1.getFilm_id();
+//                log.info("id filma" + id);
+//                if(id != null) {
+//                    Film f = filmiZrno.getFilmById(id);
+//                    if(f != null) {
+//                        i.getFilmi().add(f);
+//                    }
+//                }
+//            }
         }
         igralciZrno.posodobiIgralca(i);
     }

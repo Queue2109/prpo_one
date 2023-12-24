@@ -1,9 +1,14 @@
 package si.fri.prpo.skupina4;
 
+import javax.json.bind.Jsonb;
+import javax.json.bind.JsonbBuilder;
 import javax.json.bind.annotation.JsonbTransient;
-import javax.persistence.*;;
+import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity(name = "film")
 @NamedQueries(value = {
@@ -41,14 +46,15 @@ public class Film implements Serializable {
     private Zanr zanr;
     private Integer ocena;
 
-    @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(name = "film_igralec", joinColumns = @JoinColumn(name = "film_id"), inverseJoinColumns = @JoinColumn(name = "igralec_id"))
-    private List<Igralec> zasedba;
-
+    @ManyToMany
+    @JoinTable(name = "film_igralski_zasedbi",
+            joinColumns = @JoinColumn(name = "film_id"),
+            inverseJoinColumns = @JoinColumn(name = "igralec_id"))
+//    @JsonbTransient
+    private Set<Igralec> zasedba = new HashSet<>();
 
     @OneToMany(mappedBy = "film", cascade = CascadeType.ALL)
     private List<Ocena> ocene;
-
 
     public Integer getFilm_id() {
         return film_id;
@@ -98,11 +104,11 @@ public class Film implements Serializable {
         this.ocena = ocena;
     }
 
-    public List<Igralec> getZasedba() {
+    public Set<Igralec> getZasedba() {
         return zasedba;
     }
 
-    public void setZasedba(List<Igralec> zasedba) {
+    public void setZasedba(Set<Igralec> zasedba) {
         this.zasedba = zasedba;
     }
 
@@ -112,6 +118,12 @@ public class Film implements Serializable {
 
     public void setOcene(List<Ocena> ocene) {
         this.ocene = ocene;
+    }
+    public void addIgralec(Igralec i) {
+        if(zasedba == null || zasedba.isEmpty()) {
+            zasedba = new HashSet<>();
+        }
+        zasedba.add(i);
     }
 
     @Override

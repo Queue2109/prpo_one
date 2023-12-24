@@ -40,6 +40,18 @@
             </dependency>
 
             <dependency>
+                <groupId>javax.json.bind</groupId>
+                <artifactId>javax.json.bind-api</artifactId>
+                <version>1.0</version>
+            </dependency>
+            <dependency>
+                <groupId>org.eclipse</groupId>
+                <artifactId>yasson</artifactId>
+                <version>1.0.8</version>
+            </dependency>
+
+
+            <dependency>
                 <groupId>com.kumuluz.ee</groupId>
                 <artifactId>kumuluzee-bom</artifactId>
                 <version>${kumuluzee.version}</version>

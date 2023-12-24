@@ -5,6 +5,7 @@ import si.fri.prpo.skupina4.Film;
 import javax.json.bind.Jsonb;
 import javax.json.bind.JsonbBuilder;
 import java.util.List;
+import java.util.Set;
 
 public class IgralecDto {
 
@@ -14,7 +15,7 @@ public class IgralecDto {
 
     private String priimek;
 
-    private List<Film> filmi;
+    private Set<Film> filmi;
 
     public Integer getIgralec_id() {
         return igralec_id;
@@ -45,8 +46,11 @@ public class IgralecDto {
         String result = jsonb.toJson(filmi);
         return result;
     }
+    public Set<Film> getFilmiList() {
+        return filmi;
+    }
 
-    public void setFilmi(List<Film> filmi) {
+    public void setFilmi(Set<Film> filmi) {
         this.filmi = filmi;
     }
 }

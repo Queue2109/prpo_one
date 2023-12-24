@@ -8,6 +8,7 @@ import javax.json.bind.Jsonb;
 import javax.json.bind.JsonbBuilder;
 import java.io.Serializable;
 import java.util.List;
+import java.util.Set;
 
 public class FilmDto implements Serializable{
     Jsonb jsonb = JsonbBuilder.create();
@@ -22,7 +23,7 @@ public class FilmDto implements Serializable{
     private Zanr zanr;
     private Double povprecna_ocena;
 
-    private List<Igralec> zasedba;
+    private Set<Igralec> zasedba;
 
     private List<Ocena> ocene;
 
@@ -86,11 +87,11 @@ public class FilmDto implements Serializable{
     public String getZasedba() {
         return jsonb.toJson(zasedba);
     }
-    public List<Igralec> getZasedbaList() {
+    public Set<Igralec> getZasedbaSet() {
         return zasedba;
     }
 
-    public void setZasedba(List<Igralec> zasedba) {
+    public void setZasedba(Set<Igralec> zasedba) {
         this.zasedba = zasedba;
     }
 

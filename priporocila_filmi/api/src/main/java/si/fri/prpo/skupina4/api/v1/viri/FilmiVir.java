@@ -27,6 +27,7 @@ import javax.ws.rs.core.UriInfo;
 import com.kumuluz.ee.rest.beans.QueryParameters;
 
 import java.util.List;
+import java.util.Set;
 
 // Root path /api/v1
 @Path("filmi")
@@ -177,7 +178,7 @@ public class FilmiVir {
         if (f == null){
             return Response.status(Response.Status.BAD_REQUEST).build();
         }
-        List<Igralec> list = f.getZasedba();
+        Set<Igralec> list = f.getZasedba();
 
         LoveCalcApiOdjemalecDto rezultat = loveCalcApiOdjemalec.getLoveCalc(ime1, ime2);
         return Response.status(Response.Status.OK).entity(rezultat).build();
