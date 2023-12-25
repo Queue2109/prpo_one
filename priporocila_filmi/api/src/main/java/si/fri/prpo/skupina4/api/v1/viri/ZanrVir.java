@@ -8,6 +8,7 @@ import org.eclipse.microprofile.openapi.annotations.media.Content;
 import org.eclipse.microprofile.openapi.annotations.media.Schema;
 import org.eclipse.microprofile.openapi.annotations.responses.APIResponse;
 import org.eclipse.microprofile.openapi.annotations.responses.APIResponses;
+import org.eclipse.microprofile.openapi.annotations.tags.Tag;
 import si.fri.prpo.skupina4.Film;
 import si.fri.prpo.skupina4.Uporabnik;
 import si.fri.prpo.skupina4.Zanr;
@@ -31,6 +32,7 @@ import java.awt.desktop.SystemSleepEvent;
 import java.util.ArrayList;
 import java.util.List;
 
+@Tag(name="Zanri")
 @Path("zanr")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
@@ -64,10 +66,10 @@ public class ZanrVir {
                 .build();
     }
 
-    @Operation(description = "Vrne podrobnosti žanra", summary = "Podrobnosti žanra.")
+    @Operation(description = "Vrne filme s podanim žanrom.", summary = "Podrobnosti filmov.")
     @APIResponses({
             @APIResponse(responseCode = "200",
-                    description = "Podrobnosti žanra",
+                    description = "Podrobnosti filmov",
                     content = @Content(schema = @Schema(implementation = Zanr.class, type = SchemaType.ARRAY)))
     })
     @GET

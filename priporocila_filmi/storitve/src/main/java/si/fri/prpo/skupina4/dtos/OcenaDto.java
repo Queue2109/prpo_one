@@ -15,7 +15,7 @@ public class OcenaDto {
 
     private Film film;
 
-    private Integer ocena;
+    private Double ocena;
 
     private String komentar;
 
@@ -46,11 +46,11 @@ public class OcenaDto {
         this.film = film;
     }
 
-    public Integer getOcena() {
+    public Double getOcena() {
         return ocena;
     }
 
-    public void setOcena(Integer ocena) {
+    public void setOcena(Double ocena) {
         this.ocena = ocena;
     }
 

@@ -8,6 +8,7 @@ import org.eclipse.microprofile.openapi.annotations.media.Content;
 import org.eclipse.microprofile.openapi.annotations.media.Schema;
 import org.eclipse.microprofile.openapi.annotations.responses.APIResponse;
 import org.eclipse.microprofile.openapi.annotations.responses.APIResponses;
+import org.eclipse.microprofile.openapi.annotations.tags.Tag;
 import si.fri.prpo.skupina4.Ocena;
 import si.fri.prpo.skupina4.Uporabnik;
 import si.fri.prpo.skupina4.dtos.FilmDto;
@@ -26,6 +27,7 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 import java.util.List;
 
+@Tag(name="Ocene")
 @Path("ocene")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)

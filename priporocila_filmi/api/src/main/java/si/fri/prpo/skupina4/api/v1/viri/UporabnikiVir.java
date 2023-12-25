@@ -7,6 +7,7 @@ import org.eclipse.microprofile.openapi.annotations.media.Content;
 import org.eclipse.microprofile.openapi.annotations.media.Schema;
 import org.eclipse.microprofile.openapi.annotations.responses.APIResponse;
 import org.eclipse.microprofile.openapi.annotations.responses.APIResponses;
+import org.eclipse.microprofile.openapi.annotations.tags.Tag;
 import si.fri.prpo.skupina4.Uporabnik;
 import si.fri.prpo.skupina4.dtos.UporabnikDto;
 import si.fri.prpo.skupina4.interceptorji.BelezenjeKlicevInterceptor;
@@ -23,6 +24,8 @@ import javax.ws.rs.core.UriInfo;
 import com.kumuluz.ee.rest.beans.QueryParameters;
 
 // Root path /api/v1
+
+@Tag(name="Uporabniki")
 @Path("uporabniki")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)

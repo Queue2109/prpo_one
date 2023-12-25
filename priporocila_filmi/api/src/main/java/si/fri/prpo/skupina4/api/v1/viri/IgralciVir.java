@@ -8,6 +8,7 @@ import org.eclipse.microprofile.openapi.annotations.media.Content;
 import org.eclipse.microprofile.openapi.annotations.media.Schema;
 import org.eclipse.microprofile.openapi.annotations.responses.APIResponse;
 import org.eclipse.microprofile.openapi.annotations.responses.APIResponses;
+import org.eclipse.microprofile.openapi.annotations.tags.Tag;
 import si.fri.prpo.skupina4.Igralec;
 import si.fri.prpo.skupina4.Uporabnik;
 import si.fri.prpo.skupina4.dtos.IgralecDto;
@@ -24,6 +25,7 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 
 
+@Tag(name="Igralci")
 @Path("igralci")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)

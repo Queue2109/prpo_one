@@ -30,7 +30,7 @@ public class Ocena implements Serializable {
     @JoinColumn(name = "film_id")
     private Film film;
 
-    private Integer ocena;
+    private Double ocena;
 
     private String komentar;
 
@@ -47,7 +47,6 @@ public class Ocena implements Serializable {
     public String getUporabnik() {
         return uporabnik != null ? uporabnik.toString() : null;
     }
-
     public void setUporabnik(Uporabnik uporabnik) {
         this.uporabnik = uporabnik;
     }
@@ -60,11 +59,11 @@ public class Ocena implements Serializable {
         this.film = film;
     }
 
-    public Integer getOcena() {
+    public Double getOcena() {
         return ocena;
     }
 
-    public void setOcena(Integer ocena) {
+    public void setOcena(Double ocena) {
         this.ocena = ocena;
     }
 
@@ -88,10 +87,10 @@ public class Ocena implements Serializable {
     public String toString() {
         this.setCas_objave(new Date());
         StringBuilder sb = new StringBuilder();
-        sb.append("Ocena{").append("ocena_id=").append(ocena_id).append('\'');;
-        sb.append(", uporabnik=").append(uporabnik.toString()).append('\'');;
-        sb.append(", film=").append(film.toString()).append('\'');;
-        sb.append(", ocena=").append(ocena).append('\'');;
+        sb.append("Ocena{").append("ocena_id=").append(ocena_id).append('\'');
+        sb.append(", uporabnik=").append(uporabnik.toString()).append('\'');
+        sb.append(", film=").append(film.toString()).append('\'');
+        sb.append(", ocena=").append(ocena).append('\'');
         sb.append(", komentar='").append(komentar).append('\'');
         sb.append(", cas_objave=").append(cas_objave).append('\'');;
         return sb.toString();

@@ -5,10 +5,13 @@ import javax.json.bind.JsonbBuilder;
 import javax.json.bind.annotation.JsonbTransient;
 import javax.persistence.*;
 import java.io.Serializable;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+
+import static java.lang.String.format;
 
 @Entity(name = "film")
 @NamedQueries(value = {
@@ -44,7 +47,7 @@ public class Film implements Serializable {
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "zanr_id")
     private Zanr zanr;
-    private Integer ocena;
+    private Double ocena;
 
     @ManyToMany
     @JoinTable(name = "film_igralski_zasedbi",
@@ -96,12 +99,25 @@ public class Film implements Serializable {
         this.zanr = zanr;
     }
 
-    public Integer getOcena() {
+    public Double getOcena() {
         return ocena;
     }
 
-    public void setOcena(Integer ocena) {
-        this.ocena = ocena;
+    public void setOcena() {
+        if(ocene == null || ocene.isEmpty()) {
+            this.ocena = null;
+            return;
+        }
+        int sum = 0;
+        int n = 0;
+        for (Ocena o: ocene ){
+            sum += o.getOcena();
+            n++;
+        }
+        DecimalFormat df = new DecimalFormat("#.#");
+        String formattedNumber = df.format(((double)sum/(double)n));
+
+        this.ocena = Double.parseDouble(formattedNumber);
     }
 
     public Set<Igralec> getZasedba() {
@@ -124,6 +140,14 @@ public class Film implements Serializable {
             zasedba = new HashSet<>();
         }
         zasedba.add(i);
+    }
+
+    public void addOcena(Ocena o) {
+        if(ocene == null || ocene.isEmpty()) {
+            ocene = new ArrayList<>();
+        }
+        ocene.add(o);
+        setOcena();
     }
 
     @Override

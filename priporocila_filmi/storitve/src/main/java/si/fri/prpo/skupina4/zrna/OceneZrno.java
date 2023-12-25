@@ -56,13 +56,12 @@ public class OceneZrno {
 
     @Transactional
     public void dodajOceno(Ocena ocena) {
-        if (ocena != null) {
-            try{
-                em.persist(ocena);
-            } catch (IllegalArgumentException | TransactionRequiredException e) {
-                e.printStackTrace();
-            }
+        try{
+            em.persist(ocena);
+        } catch (IllegalArgumentException | TransactionRequiredException e) {
+            e.printStackTrace();
         }
+
     }
 
     @Transactional
