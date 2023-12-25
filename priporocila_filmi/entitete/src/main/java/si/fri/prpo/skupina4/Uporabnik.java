@@ -40,6 +40,7 @@ public class Uporabnik implements Serializable {
 
 
     @OneToMany(mappedBy = "uporabnik", cascade = CascadeType.ALL)
+    @JsonbTransient
     private List<Ocena> ocene;
 
     public Integer getUporabnik_id() {
@@ -102,6 +103,17 @@ public class Uporabnik implements Serializable {
         return ocene;
     }
 
+    public String oceneString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Ocene: [");
+        for (Ocena o : ocene) {
+            sb.append(o.toString()).append(", ");
+        }
+        sb.reverse().delete(0, 2).reverse();
+        sb.append("]");
+        return sb.toString();
+    }
+
     public void setOcene(List<Ocena> ocene) {
         this.ocene = ocene;
     }
@@ -119,7 +131,7 @@ public class Uporabnik implements Serializable {
         for (Zanr z : zanr_preference) {
             sb.append(z.getZanr_id()).append(", ");
         }
-        sb.reverse().delete(0, 2).reverse().append("]}").append('\'');;
+        sb.reverse().delete(0, 2).reverse().append("]}").append('\'');
 
         return sb.toString();
     }

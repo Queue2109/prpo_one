@@ -47,6 +47,10 @@ public class Ocena implements Serializable {
     public String getUporabnik() {
         return uporabnik != null ? uporabnik.toString() : null;
     }
+    @JsonbTransient
+    public Uporabnik getUporabnikObj() {
+        return uporabnik;
+    }
     public void setUporabnik(Uporabnik uporabnik) {
         this.uporabnik = uporabnik;
     }

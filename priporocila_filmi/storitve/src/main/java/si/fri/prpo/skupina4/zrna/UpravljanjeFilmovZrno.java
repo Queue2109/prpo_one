@@ -191,7 +191,17 @@ public class UpravljanjeFilmovZrno {
             o.setOcena(ocena.getOcena());
         }
         if(ocena.getUporabnik() != null) {
-            o.setUporabnik(uporabnikiZrno.getUporabnikById(ocena.getUporabnik().getUporabnik_id()));
+            Uporabnik oldUporabnik = o.getUporabnikObj();
+            if (oldUporabnik != null) {
+                oldUporabnik.getOcene().remove(oceneZrno.getOcenaById(ocena.getOcena_id()));
+                uporabnikiZrno.posodobiUporabnika(oldUporabnik);
+            }
+
+            // Add a new ocena for the uporabnik
+            Uporabnik newUporabnik = uporabnikiZrno.getUporabnikById(ocena.getUporabnik().getUporabnik_id());
+            o.setUporabnik(newUporabnik);
+            newUporabnik.getOcene().add(o);
+            uporabnikiZrno.posodobiUporabnika(newUporabnik);
         }
         if (ocena.getFilm() != null) {
 //            odstrani staro oceno filma
