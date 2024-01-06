@@ -1,5 +1,6 @@
 package si.fri.prpo.skupina4.api.v1.viri;
 
+import com.kumuluz.ee.cors.annotations.CrossOrigin;
 import jdk.jfr.Name;
 import org.eclipse.microprofile.openapi.annotations.Operation;
 import org.eclipse.microprofile.openapi.annotations.enums.SchemaType;
@@ -10,7 +11,6 @@ import org.eclipse.microprofile.openapi.annotations.parameters.RequestBody;
 import org.eclipse.microprofile.openapi.annotations.responses.APIResponse;
 import org.eclipse.microprofile.openapi.annotations.responses.APIResponses;
 import org.eclipse.microprofile.openapi.annotations.tags.Tag;
-import org.eclipse.microprofile.openapi.annotations.tags.Tags;
 import si.fri.prpo.skupina4.Film;
 import si.fri.prpo.skupina4.Igralec;
 import si.fri.prpo.skupina4.dtos.FilmDto;
@@ -19,6 +19,7 @@ import si.fri.prpo.skupina4.interceptorji.BelezenjeKlicevInterceptor;
 import si.fri.prpo.skupina4.odjemalci.LoveCalcApiOdjemalec;
 import si.fri.prpo.skupina4.zrna.FilmiZrno;
 import si.fri.prpo.skupina4.zrna.UpravljanjeFilmovZrno;
+import com.kumuluz.ee.*;
 
 import javax.inject.Inject;
 import javax.interceptor.Interceptors;
@@ -38,6 +39,7 @@ import java.util.Set;
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 @Interceptors(BelezenjeKlicevInterceptor.class)
+@CrossOrigin(supportedMethods = "GET, POST, HEAD, DELETE, OPTIONS")
 public class FilmiVir {
     @Context
     protected UriInfo uriInfo;

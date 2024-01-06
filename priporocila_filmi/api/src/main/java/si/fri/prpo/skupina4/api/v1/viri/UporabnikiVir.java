@@ -1,5 +1,6 @@
 package si.fri.prpo.skupina4.api.v1.viri;
 
+import com.kumuluz.ee.cors.annotations.CrossOrigin;
 import org.eclipse.microprofile.openapi.annotations.Operation;
 import org.eclipse.microprofile.openapi.annotations.enums.SchemaType;
 import org.eclipse.microprofile.openapi.annotations.headers.Header;
@@ -30,6 +31,7 @@ import com.kumuluz.ee.rest.beans.QueryParameters;
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 @Interceptors(BelezenjeKlicevInterceptor.class)
+@CrossOrigin(supportedMethods = "GET, POST, HEAD, DELETE, OPTIONS")
 public class UporabnikiVir {
     @Context
     protected UriInfo uriInfo;

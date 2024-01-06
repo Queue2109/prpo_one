@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: priporocila-filmi-deployment
+spec:
+  replicas: 1  # stevilo instanc mikrostoritve
+  selector:
+    matchLabels:
+      app: priporocila-filmi
+  template:  # kontejnerji
+    metadata:
+      labels:
+        app: priporocila-filmi
+    spec:
+      containers:
+        - image: bucarjeva/imidz #:latest  # image iz DockerHub
+          name: priporocila-filmi  # poljubno ime
+          env:
+            - name: KUMULUZEE_DATASOURCES0_CONNECTIONURL
+              value: jdbc:postgresql://tyke.db.elephantsql.com:5432/sgtpsndw #url za povezavo na bazo
+              # jdbc:postgresql://localhost:5432/priporocila   api/.../config.yaml
+              # postgres://sgtpsndw:TPIof-ODJ9Ncj3KxHNvn7QBP5cMCFSca@tyke.db.elephantsql.com/sgtpsndw
+            - name: KUMULUZEE_DATASOURCES0_USERNAME
+              value: sgtpsndw #uporabnisko ime
+            - name: KUMULUZEE_DATASOURCES0_PASSWORD
+              value: TPIof-ODJ9Ncj3KxHNvn7QBP5cMCFSca
+              #geslo
+          ports:
+            - containerPort: 8080
+              name: server  # poljubno ime porta lmao
+              protocol: TCP
+
+---
+# za dostop do deployment
+apiVersion: v1
+kind: Service
+metadata:
+  name: priporocila-filmi
+spec:
+  type: LoadBalancer # javno dostopno
+  ports:
+    - port: 8080
+      protocol: TCP
+      targetPort: server  # prej definirano ime porta
+  selector:
+    app: priporocila-filmi
