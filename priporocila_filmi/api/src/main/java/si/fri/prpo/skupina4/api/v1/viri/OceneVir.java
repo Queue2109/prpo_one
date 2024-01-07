@@ -55,15 +55,26 @@ public class OceneVir {
         return Response.status(Response.Status.OK).entity(filmi).build();
     }
 
-//    @GET
-//    @Path("{id}")
-//    public Response getOceneByFilm(@PathParam("id") Integer id){
-//        Ocena o = oceneZrno.getOcenaById(id);
-//        if (o == null){
-//            return Response.status(Response.Status.NO_CONTENT).build();
-//        }
-//        return Response.status(Response.Status.OK).entity(o).build();
-//    }
+    @Operation(description = "Vrne ocene za določen film", summary = "Seznam ocen za določen film.")
+    @APIResponses({
+            @APIResponse(responseCode = "200",
+                    description = "Seznam ocen za določen film",
+                    content = @Content(schema = @Schema(implementation = Ocena.class, type = SchemaType.ARRAY)),
+                    headers = {@Header(name = "Ocene", description = "Število vrnjenih ocen")}
+            ),
+            @APIResponse(responseCode = "204",
+                    description = "Film ne obstaja"
+            ),
+    })
+    @GET
+    @Path("{film_id}")
+    public Response getOceneByFilm(@PathParam("film_id") Integer film_id){
+        List<Ocena> o = oceneZrno.getOcenaByFilmId(film_id);
+        if (o == null){
+            return Response.status(Response.Status.NO_CONTENT).build();
+        }
+        return Response.status(Response.Status.OK).entity(o).build();
+    }
 
     @Operation(description = "Vrne vse ocena", summary = "Seznam ocen.")
     @APIResponses({

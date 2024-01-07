@@ -55,6 +55,18 @@ public class OceneZrno {
     }
 
     @Transactional
+    public List<Ocena> getOcenaByFilmId(Integer film_id) {
+        try {
+            Query query = em.createNamedQuery("Ocena.getOceneByFilmId", Ocena.class);
+            query.setParameter("film_id", film_id);
+            return query.getResultList();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    @Transactional
     public void dodajOceno(Ocena ocena) {
         try{
             em.persist(ocena);
