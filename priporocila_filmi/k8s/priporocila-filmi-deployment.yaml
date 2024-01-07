@@ -15,6 +15,7 @@ spec:
       containers:
         - image: bucarjeva/imidz #:latest  # image iz DockerHub
           name: priporocila-filmi  # poljubno ime
+          imagePullPolicy: Always
           env:
             - name: KUMULUZEE_DATASOURCES0_CONNECTIONURL
               value: jdbc:postgresql://tyke.db.elephantsql.com:5432/sgtpsndw #url za povezavo na bazo
