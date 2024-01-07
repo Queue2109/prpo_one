@@ -155,13 +155,16 @@ public class UpravljanjeFilmovZrno {
 //        ti pogoji se preverijo v interceptorju
         film.setNaslov(filmDto.getNaslov());
         film.setLeto_izzida(filmDto.getLeto_izzida());
-        film.setZanr(zanrZrno.getZanrById(filmDto.getZanr().getZanr_id()));
-
-        Set<Igralec> igralci = new HashSet<>();
-        for(Igralec igralec : film.getZasedba()) {
-            igralci.add(igralciZrno.getIgralecById(igralec.getIgralec_id()));
+        if(filmDto.getZanr() != null) {
+            film.setZanr(zanrZrno.getZanrById(filmDto.getZanr().getZanr_id()));
         }
-        film.setZasedba(igralci);
+        if(filmDto.getZasedba() != null) {
+            Set<Igralec> igralci = new HashSet<>();
+            for(Igralec igralec : film.getZasedba()) {
+                igralci.add(igralciZrno.getIgralecById(igralec.getIgralec_id()));
+            }
+            film.setZasedba(igralci);
+        }
 
         String opis = filmDto.getOpis();
         if(opis != null && !opis.isEmpty()) {

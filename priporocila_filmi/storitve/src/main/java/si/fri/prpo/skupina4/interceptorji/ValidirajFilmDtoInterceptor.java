@@ -17,10 +17,8 @@ public class ValidirajFilmDtoInterceptor {
         if(context.getParameters().length == 1  && context.getParameters()[0] instanceof FilmDto) {
             FilmDto film = (FilmDto) context.getParameters()[0];
             if(film != null && film.getNaslov() == null || film.getNaslov().isEmpty()
-                    || film.getZanr() == null
-                    || film.getLeto_izzida() == null
-                    || film.getZasedba() == null) {
-                String msg = ("Film mora vsebovati naslov, žanr, leto izzida, zasedbo!");
+                    || film.getLeto_izzida() == null) {
+                String msg = ("Film mora vsebovati naslov in leto izzida!");
                 log.severe(msg);
                 throw new NeveljavenVnosIzjema(msg);
             }
