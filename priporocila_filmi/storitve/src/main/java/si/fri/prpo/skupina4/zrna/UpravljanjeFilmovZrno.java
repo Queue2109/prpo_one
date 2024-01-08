@@ -129,8 +129,6 @@ public class UpravljanjeFilmovZrno {
         Ocena ocena = new Ocena();
 //        ti pogoji se preverijo v interceptorju
         ocena.setOcena(ocenaDto.getOcena());
-        Film film = filmiZrno.getFilmById(ocenaDto.getFilm().getFilm_id());
-        ocena.setFilm(film);
         Uporabnik uporabnik = uporabnikiZrno.getUporabnikById(ocenaDto.getUporabnik().getUporabnik_id());
         ocena.setUporabnik(uporabnik);
         String komentar = ocenaDto.getKomentar();
@@ -139,11 +137,10 @@ public class UpravljanjeFilmovZrno {
         }
         ocena.setCas_objave(new Date(System.currentTimeMillis()));
         ocenaDto.setCas_objave((Date) ocena.getCas_objave());
-
-        oceneZrno.dodajOceno(ocena);
+        Film film = filmiZrno.getFilmById(ocenaDto.getFilm().getFilm_id());
+        ocena.setFilm(film);
         filmiZrno.pridobiFilm(ocenaDto.getFilm().getFilm_id()).addOcena(ocena);
-
-
+        oceneZrno.dodajOceno(ocena);
         return ocena;
     }
 
@@ -176,7 +173,6 @@ public class UpravljanjeFilmovZrno {
                 ocene.add(oceneZrno.getOcenaById(ocena.getOcena_id()));
             }
             film.setOcene(ocene);
-            film.setOcena();
         }
         filmiZrno.dodajFilm(film);
         return film;
@@ -229,6 +225,7 @@ public class UpravljanjeFilmovZrno {
             Film film = filmiZrno.getFilmById(ocena.getFilm().getFilm_id());
             o.setFilm(film);
             film.getOcene().add(o);
+            film.setOcena();
             filmiZrno.posodobiFilm(film);
         }
         oceneZrno.posodobiOceno(o);

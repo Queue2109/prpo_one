@@ -135,6 +135,7 @@ public class Film implements Serializable {
 
     public void setOcene(List<Ocena> ocene) {
         this.ocene = ocene;
+        setOcena();
     }
     public void addIgralec(Igralec i) {
         if(zasedba == null || zasedba.isEmpty()) {

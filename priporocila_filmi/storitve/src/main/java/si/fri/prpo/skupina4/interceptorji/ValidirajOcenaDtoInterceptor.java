@@ -16,6 +16,10 @@ public class ValidirajOcenaDtoInterceptor {
 
         if(context.getParameters().length == 1  && context.getParameters()[0] instanceof OcenaDto) {
             OcenaDto ocena = (OcenaDto) context.getParameters()[0];
+            if(ocena.getOcena() != null && ((ocena.getOcena() < 1) || (ocena.getOcena() > 10))){
+                String msgg = ("Napaka pri ustvarjanju ocene - ocena mora biti med 1 in 10!");
+                throw new NeveljavenVnosIzjema(msgg);
+            }
             if(ocena.getOcena() == null
                     || ocena.getUporabnik() == null
                     || ocena.getFilm() == null) {
@@ -23,9 +27,6 @@ public class ValidirajOcenaDtoInterceptor {
                 log.severe(msg);
                 throw new NeveljavenVnosIzjema(msg);
 
-            } else if(ocena.getOcena() != null && ((ocena.getOcena() < 0) || (ocena.getOcena() > 10)) && ((ocena.getOcena() % 1) != 0)){
-                String msgg = ("Napaka pri ustvarjanju ocene - ocena mora biti med 0 in 10!");
-                throw new NeveljavenVnosIzjema(msgg);
             }
         }
         return context.proceed();
