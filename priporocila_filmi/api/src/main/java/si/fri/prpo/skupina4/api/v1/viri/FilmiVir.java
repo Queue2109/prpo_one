@@ -1,7 +1,6 @@
 package si.fri.prpo.skupina4.api.v1.viri;
 
 import com.kumuluz.ee.cors.annotations.CrossOrigin;
-import jdk.jfr.Name;
 import org.eclipse.microprofile.openapi.annotations.Operation;
 import org.eclipse.microprofile.openapi.annotations.enums.SchemaType;
 import org.eclipse.microprofile.openapi.annotations.headers.Header;

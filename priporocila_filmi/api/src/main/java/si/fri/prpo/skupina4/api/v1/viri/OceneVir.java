@@ -10,6 +10,7 @@ import org.eclipse.microprofile.openapi.annotations.media.Schema;
 import org.eclipse.microprofile.openapi.annotations.responses.APIResponse;
 import org.eclipse.microprofile.openapi.annotations.responses.APIResponses;
 import org.eclipse.microprofile.openapi.annotations.tags.Tag;
+import si.fri.prpo.skupina4.Film;
 import si.fri.prpo.skupina4.Ocena;
 import si.fri.prpo.skupina4.Uporabnik;
 import si.fri.prpo.skupina4.dtos.FilmDto;
@@ -138,5 +139,26 @@ public class OceneVir {
         ocenaDto.setOcena_id(id);
         upravljanjeFilmovZrno.posodobiOcenoFilma(ocenaDto);
         return Response.status(Response.Status.OK).entity(ocenaDto).build();
+    }
+
+    @Operation(description = "izbriši oceno filmu", summary = "Brisanje ocene filma")
+    @APIResponses({
+            @APIResponse(responseCode = "200",
+                    description = "Ocena uspešno odstranjena"),
+            @APIResponse(responseCode = "500",
+                    description = "Napaka na strežniku"),
+            @APIResponse(responseCode = "404",
+                    description = "Film s to oceno ne obstaja")
+    })
+    @DELETE
+    @Path("brisi/{o_id}")
+    public Response odstraniOceno(@PathParam("o_id") Integer o_id){
+        Ocena o = oceneZrno.getOcenaById(o_id);
+        int f_id = o.getFilm().getFilm_id();
+
+        if(oceneZrno.odstraniOceno(o))
+            return Response.status(Response.Status.OK).entity(f_id).build();
+        else
+            return Response.status(Response.Status.NOT_FOUND).build();
     }
 }

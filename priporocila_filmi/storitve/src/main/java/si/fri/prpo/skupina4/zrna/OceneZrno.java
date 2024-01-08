@@ -86,11 +86,13 @@ public class OceneZrno {
     }
 
     @Transactional
-    public void odstraniOceno(Ocena ocena) {
+    public Boolean odstraniOceno(Ocena ocena) {
         try{
             em.remove(em.merge(ocena));
+            return true;
         } catch (IllegalArgumentException | TransactionRequiredException e) {
             e.printStackTrace();
+            return false;
         }
     }
 
