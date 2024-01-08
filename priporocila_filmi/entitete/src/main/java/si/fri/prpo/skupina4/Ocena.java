@@ -1,5 +1,8 @@
 package si.fri.prpo.skupina4;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
+import javax.json.bind.annotation.JsonbDateFormat;
 import javax.json.bind.annotation.JsonbTransient;
 import javax.persistence.*;
 import java.io.Serializable;
@@ -28,6 +31,7 @@ public class Ocena implements Serializable {
     @JoinColumn(name="uporabnik_id")
     private Uporabnik uporabnik;
 
+    @JsonBackReference
     @ManyToOne
     @JoinColumn(name = "film_id")
     private Film film;
@@ -36,6 +40,7 @@ public class Ocena implements Serializable {
 
     private String komentar;
 
+    @JsonbDateFormat(value = "yyyy-MM-dd'T'HH:mm:ss")
     private Date cas_objave;
 
     public Integer getOcena_id() {
@@ -46,8 +51,9 @@ public class Ocena implements Serializable {
         this.ocena_id = ocena_id;
     }
 
-    public String getUporabnik() {
-        return uporabnik != null ? uporabnik.toString() : null;
+    @JsonbTransient
+    public Uporabnik getUporabnik() {
+        return uporabnik /*!= null ? uporabnik.toString() : null*/;
     }
     @JsonbTransient
     public Uporabnik getUporabnikObj() {
@@ -57,8 +63,9 @@ public class Ocena implements Serializable {
         this.uporabnik = uporabnik;
     }
 
-    public String getFilm() {
-        return film != null ? film.toString() : null;
+    public Film getFilm() {
+
+        return film /*!= null ? film.toString() : null*/;
     }
 
     public void setFilm(Film film) {

@@ -194,7 +194,7 @@ public class UpravljanjeFilmovZrno {
             o.setOcena(ocena.getOcena());
         }
         if(ocena.getUporabnik() != null) {
-            Uporabnik oldUporabnik = o.getUporabnikObj();
+            Uporabnik oldUporabnik = o.getUporabnik();
             if (oldUporabnik != null) {
                 oldUporabnik.getOcene().remove(oceneZrno.getOcenaById(ocena.getOcena_id()));
                 uporabnikiZrno.posodobiUporabnika(oldUporabnik);

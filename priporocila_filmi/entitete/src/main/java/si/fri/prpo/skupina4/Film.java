@@ -1,7 +1,6 @@
 package si.fri.prpo.skupina4;
 
-import javax.json.bind.Jsonb;
-import javax.json.bind.JsonbBuilder;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import javax.json.bind.annotation.JsonbTransient;
 import javax.persistence.*;
 import java.io.Serializable;
@@ -11,7 +10,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import static java.lang.String.format;
 
 @Entity(name = "film")
 @NamedQueries(value = {
@@ -44,7 +42,8 @@ public class Film implements Serializable {
 
     private Integer leto_izzida;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @JsonManagedReference
+    @ManyToOne(cascade = CascadeType.DETACH)
     @JoinColumn(name = "zanr_id")
     private Zanr zanr;
     private Double ocena;
@@ -56,7 +55,9 @@ public class Film implements Serializable {
 //    @JsonbTransient
     private Set<Igralec> zasedba = new HashSet<>();
 
-    @OneToMany(mappedBy = "film", cascade = CascadeType.ALL)
+    @JsonManagedReference
+    @JsonbTransient
+    @OneToMany(mappedBy = "film", cascade = CascadeType.DETACH)
     private List<Ocena> ocene;
 
     public Integer getFilm_id() {
